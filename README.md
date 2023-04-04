@@ -41,7 +41,7 @@ Some JavaScript was also used for smaller animations and the display and export 
 </table>
 
 
-### Project Contributers
+### Project Contributors
 Concept by Birgit Haselmayr, Isabella Molterer and Natascha Rammelmüller
 
 Frontend Developer: Natascha  
