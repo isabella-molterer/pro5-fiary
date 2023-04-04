@@ -1,0 +1,225 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Info & Downloads{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href= "{{ asset('assets/css/info.css') }}">
+{% endblock %}
+
+{% block body %}
+    <style>
+        #datenschutz {
+            margin: auto;
+        }
+        #linie {
+            margin-top: 5%;
+        }
+    </style>
+
+      <div class="row">
+        <div class="col-12 col-sm-12">
+            <h1>Info & Downloads</h1>
+
+            <hr class="firstline">
+
+            <div id="accordion" class="panel-group">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a href="#panelBodyOne" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" style="display:block;">
+                                <i>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="15" height="15" viewBox="0 0 451.846 451.847">
+                                        <g><path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744 	L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284 c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></g>
+                                    </svg>
+                                </i>
+                                Wichtige Dokumente
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="panelBodyOne" class="panel-collapse collapse show in">
+                        <div class="panel-body">
+                            <div class="panel-content">
+                                {{ form_start(form , {'attr': {'novalidate':'novalidate'}} ) }}
+                                    {{ form_row(form.datum) }}
+                                    {{ form_row(form.zeit) }}
+                                    {{ form_row(form.kategorie) }}
+                                    {{ form_row(form.submit) }}
+                                {{ form_end(form) }}
+
+                                {% if eintraege %}
+                                    <ul>
+                                        {% for eintrag in eintraege %}
+                                            <li>{% if is_granted('ROLE_ADMIN') %}
+                                                    <a href="{{ path('entries_save', {'id':eintrag.idlogbuch} ) }}">
+                                                        <i><img src="{{  asset('assets/img/pdf.svg') }}" alt="delete symbol"></i>
+                                                    </a>
+
+                                                {% endif %}
+                                                {% if eintrag.beginnDatum %}{{ eintrag.beginnDatum|date('d.m.Y') }}{% else %}{% endif %}:
+                                                {% if eintrag.kategorie %}{{ eintrag.kategorie }}{% else %}{% endif %} -
+                                                {% if eintrag.beschreibung %}{{ eintrag.beschreibung }}{% else %}{% endif %}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    <p class="error">Keine Einträge an zu diesem Datum gefunden</p>
+                                {% endif %}
+
+                                <ul>
+                                    <li>
+                                        <a href="#" download>
+                                            <i><img src="{{ asset('assets/img/pdf.svg') }}" alt="home symbol"></i>
+                                            <span>Atemschutzliste</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" download>
+                                            <i><img src="{{ asset('assets/img/pdf.svg') }}" alt="home symbol"></i>
+                                            <span>Brandeinsätze</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" download>
+                                            <i><img src="{{ asset('assets/img/pdf.svg') }}" alt="home symbol"></i>
+                                            <span>etc.</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a href="#panelBodyTwo" class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"style="display:block;">
+                                <i>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="15" height="15" viewBox="0 0 451.846 451.847">
+                                        <g><path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744 	L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284 c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></g>
+                                    </svg>
+                                </i>
+                                Mitgliederliste
+                            </a>
+                        </h4>
+                    </div>
+
+                    <div id="panelBodyTwo" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{  path('member_new') }}" id="adduser" class="biggreybutton">Mitglied hinzufügen</a>
+                            {% endif %}
+                            <div class="panel-content">
+                                <!--  version 1 -->
+                                <div id="users">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive">
+                                                <table class="fixed_header table display" id="example"  style="width:100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th >Stb-Nr.</th>
+                                                            <th>DG</th>
+                                                            <th>Vorname</th>
+                                                            <th>Nachname</th>
+                                                            <th>Festnetz</th>
+                                                            <th>Mobiltelefon</th>
+                                                            <th>E-Mail</th>
+                                                            <th>ATS-Tauglichkeit</th>
+                                                            {% if is_granted('ROLE_ADMIN') %}
+                                                                <th><svg version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#fff" width="20" height="20"
+                                                                        viewBox="0 0 129 129" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 129 129">
+                                                                        <path d="m119.2,114.3h-109.4c-2.3,0-4.1,1.9-4.1,4.1s1.9,4.1 4.1,4.1h109.5c2.3,0 4.1-1.9 4.1-4.1s-1.9-4.1-4.2-4.1z"></path>
+                                                                        <path d="m5.7,78l-.1,19.5c0,1.1 0.4,2.2 1.2,3 0.8,0.8 1.8,1.2 2.9,1.2l19.4-.1c1.1,0 2.1-0.4 2.9-1.2l67-67c1.6-1.6 1.6-4.2 0-5.9l-19.2-19.4c-1.6-1.6-4.2-1.6-5.9-1.77636e-15l-13.4,13.5-53.6,53.5c-0.7,0.8-1.2,1.8-1.2,2.9zm71.2-61.1l13.5,13.5-7.6,7.6-13.5-13.5 7.6-7.6zm-62.9,62.9l49.4-49.4 13.5,13.5-49.4,49.3-13.6,.1 .1-13.5z"></path>
+                                                                    </svg></th>
+                                                                <th><i><img src="{{  asset('assets/img/delete_big.svg') }}" alt="delete symbol"></i></th>
+                                                            {% endif %}
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for mitglied in mitglieder %}
+                                                            <tr>
+                                                                <td>{% if mitglied.standesbuchnummer %}{{ mitglied.standesbuchnummer }}{% else %}  {% endif %}</td>
+                                                                <td> {% if mitglied.dienstgrad %}{{ mitglied.dienstgrad }}{% else %}  {% endif %}</td>
+                                                                <td>{% if mitglied.vorname %}{{ mitglied.vorname }}{% else %}  {% endif %}</td>
+                                                                <td>{% if mitglied.nachname %}{{ mitglied.nachname }}{% else %}  {% endif %}</td>
+                                                                <td width="200px">{% if mitglied.telefonNr %} {{ mitglied.telefonNr }}{% else %}  {% endif %}</td>
+                                                                <td>{% if mitglied.mobil %} {{ mitglied.mobil }} {% else %}  {% endif %}</td>
+                                                                <td>{% if mitglied.email %} {{ mitglied.email}} {% else %}  {% endif %}</td>
+                                                                <td>   {% if mitglied.atemschutztauglich == 1 %}JA{% elseif mitglied.atemschutztauglich == 0 %}NEIN{% endif %}</td>
+
+                                                                {% if is_granted('ROLE_ADMIN') %}
+                                                                    <td>
+                                                                        <button type="button"  class="btn smallredbutton">
+                                                                            <a href="{{ path('member_edit', {'id':mitglied.idmitglieder} ) }}">
+                                                                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#fff" width="20" height="20"
+                                                                                    viewBox="0 0 129 129" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 129 129">
+                                                                                    <path d="m119.2,114.3h-109.4c-2.3,0-4.1,1.9-4.1,4.1s1.9,4.1 4.1,4.1h109.5c2.3,0 4.1-1.9 4.1-4.1s-1.9-4.1-4.2-4.1z"></path>
+                                                                                    <path d="m5.7,78l-.1,19.5c0,1.1 0.4,2.2 1.2,3 0.8,0.8 1.8,1.2 2.9,1.2l19.4-.1c1.1,0 2.1-0.4 2.9-1.2l67-67c1.6-1.6 1.6-4.2 0-5.9l-19.2-19.4c-1.6-1.6-4.2-1.6-5.9-1.77636e-15l-13.4,13.5-53.6,53.5c-0.7,0.8-1.2,1.8-1.2,2.9zm71.2-61.1l13.5,13.5-7.6,7.6-13.5-13.5 7.6-7.6zm-62.9,62.9l49.4-49.4 13.5,13.5-49.4,49.3-13.6,.1 .1-13.5z"></path>
+                                                                                </svg>
+                                                                            </a>
+                                                                        </button>
+                                                                    </td>
+                                                                    <td>
+                                                                        <button type="button"  class="btn smallredbutton">
+                                                                            <a href="{{ path('member_delete', {'id':mitglied.idmitglieder} ) }}">
+                                                                                <i><img src="{{  asset('assets/img/delete_big.svg') }}" alt="delete symbol"></i>
+                                                                            </a>
+                                                                        </button>
+                                                                    </td>
+                                                                {% endif %}
+                                                            </tr>
+                                                        {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a href="#panelBodyThree" class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" style="display:block;">
+                                <i>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="15" height="15" viewBox="0 0 451.846 451.847">
+                                        <g><path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744 	L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284 c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></g>
+                                    </svg>
+                                </i>
+                                Häuserliste
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="panelBodyThree" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="panel-content">
+                                <table class="fixed_header table table-responsive display" id="häuser"  style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th >Strasse</th>
+                                            <th>Hausnummer</th>
+                                            <th>Bewohner</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for haus in haeuser %}
+                                            <tr>
+                                                <td>{% if haus.strasse %}{{ haus.strasse }}{% else %}  {% endif %}</td>
+                                                <td> {% if haus.hausNr %}{{ haus.hausNr }}{% else %}  {% endif %}</td>
+                                                <td>{% if haus.bewohner %}{{ haus.bewohner }}{% else %}  {% endif %}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr id="linie"><br><a href="{{ path('datenschutz') }}" class="bigredbutton" id="datenschutz">Datenschutz und Impressum</a>
+{% endblock %}

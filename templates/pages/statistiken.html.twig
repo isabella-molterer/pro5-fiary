@@ -1,0 +1,211 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Statistik{% endblock %}
+
+{% block body %}
+    <link rel="stylesheet" href= "{{ asset('assets/css/statistics.css') }}">
+    <link rel="stylesheet" type="text/css" href="http://www.prepbootstrap.com/Content/shieldui-lite/dist/css/light/all.min.css" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        window.onload = function() {
+            function sliceSize(dataNum, dataTotal) {
+                return (dataNum / dataTotal) * 360;
+            }
+
+            function addSlice(id, sliceSize, pieElement, offset, sliceID, color) {
+                $(pieElement).append("<div class='slice "+ sliceID + "'><span></span></div>");
+                var offset = offset - 1;
+                var sizeRotation = -179 + sliceSize;
+
+                $(id + " ." + sliceID).css({
+                    "transform": "rotate(" + offset + "deg) translate3d(0,0,0)"
+                });
+
+                $(id + " ." + sliceID + " span").css({
+                    "transform"       : "rotate(" + sizeRotation + "deg) translate3d(0,0,0)",
+                    "background-color": color
+                });
+            }
+
+            function iterateSlices(id, sliceSize, pieElement, offset, dataCount, sliceCount, color) {
+                var maxSize = 179,
+                    sliceID = "s" + dataCount + "-" + sliceCount;
+
+                if( sliceSize <= maxSize ) {
+                    addSlice(id, sliceSize, pieElement, offset, sliceID, color);
+                } else {
+                    addSlice(id, maxSize, pieElement, offset, sliceID, color);
+                    iterateSlices(id, sliceSize-maxSize, pieElement, offset+maxSize, dataCount, sliceCount+1, color);
+                }
+            }
+
+            function createPie(id) {
+                var listData      = [],
+                    listTotal     = 0,
+                    offset        = 0,
+                    i             = 0,
+                    pieElement    = id + " .pie-chart__pie";
+                    dataElement   = id + " .pie-chart__legend";
+
+                /* Hier auf Wunsch weiter Farben einbauen */
+                color = [
+                    "orange",
+                    "tomato",
+                    "crimson"
+                ];
+
+                color = shuffle( color );
+
+                $(dataElement+" span").each(function() {
+                    listData.push(Number($(this).html()));
+                });
+
+                for(i = 0; i < listData.length; i++) {
+                    listTotal += listData[i];
+                }
+
+                for(i=0; i < listData.length; i++) {
+                    var size = sliceSize(listData[i], listTotal);
+                    iterateSlices(id, size, pieElement, offset, i, 0, color[i]);
+                    $(dataElement + " li:nth-child(" + (i + 1) + ")").css("border-color", color[i]);
+                    offset += size;
+                }
+            }
+
+            function shuffle(a) {
+                var j, x, i;
+                for (i = a.length; i; i--) {
+                    j = Math.floor(Math.random() * i);
+                    x = a[i - 1];
+                    a[i - 1] = a[j];
+                    a[j] = x;
+                }
+                return a;
+            }
+
+            function createPieCharts() {
+                createPie('.pieID--micro-skills' );
+                createPie('.pieID--categories' );
+                createPie('.pieID--operations' );
+            }
+
+            createPieCharts();
+        }
+    </script>
+
+    <h1 id="overallheading">Statistiken</h1>
+
+    <hr>
+
+    <div id="wrapper2">
+        <div class="statistics">
+            <div class="consumption-panel">
+                <div class="flex flex--justify-between">
+                    <p>
+                        Ausfahrten Insgesamt:
+                    </p>
+                </div>
+                <h2 class="consumption">{{ gesamt }} Ausfahrten!</h2>
+            </div>
+
+            <div class="flex-1">
+                <ul class="einsatz__list">
+                    <li class="einsatz__item  einsatz__total">
+                        <h2 class="einsatz__count">{{ gesamt_last|number_format }}</h2>
+                        <p class="einsatz__description">Ausfahrten {{ year-1 }}</p>
+                    </li>
+
+                    <li class="einsatz__item  einsatz__active">
+
+                        <h2 class="einsatz__count">{{ gesamt }}</h2>
+
+                        <p class="einsatz__description">Ausfahrten {{ year }}</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="wrapper">
+        <div class="pie-charts">
+            <div class="pieID--micro-skills pie-chart--wrapper">
+                <h2>Ausfahrtsarten</h2>
+                <div class="pie-chart">
+                    <div class="pie-chart__pie"></div>
+                    <ul class="pie-chart__legend">
+                        <li><em>Einsätze</em><span>{{ einsaetze|number_format }}</span></li>
+                        <li><em>Übungen</em><span>{{ uebungen|number_format }}</span></li>
+                        <li><em>Tätigkeiten</em><span>{{ taetigkeiten|number_format }}</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pieID--categories pie-chart--wrapper">
+                <h2>Einsatzarten</h2>
+                <div class="pie-chart">
+                    <div class="pie-chart__pie"></div>
+                    <ul class="pie-chart__legend">
+                        <li><em>Brandeinsatz</em><span>{{ brandeinsatz }}</span></li>
+                        <li><em>Brandsicherheitswache</em><span>{{ brandsicherheitswache }} </span></li>
+                        <li><em>Technischer Einsatz</em><span>{{ technischer }} </span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pieID--operations pie-chart--wrapper">
+                <h2>Tätigkeiten pro Jahr</h2>
+                <div class="pie-chart">
+                    <div class="pie-chart__pie"></div>
+                    <ul class="pie-chart__legend">
+                        <li><em>{{ lastyear-1 }}</em><span>15</span></li>
+                        <li><em>{{ lastyear }}</em><span>5</span></li>
+                        <li><em>{{ year }}</em><span>{{ taetigkeiten|number_format }}</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+
+    <!-- Statistiken Part 3 -->
+    <div id="projectFacts" class="sectionClass">
+        <div class="fullWidth eight columns">
+
+            <h2 id="stat3heading">{{ month }} {{ year }}</h2>
+
+            <div class="projectFactsWrap ">
+                <div class="item wow fadeInUpBig animated animated" data-number="12" style="visibility: visible;">
+                    <i class="fa fa-briefcase"></i>
+                    <p id="number1" class="number">12</p>
+                    <span></span>
+                    <p>Gesamtstundenanzahl</p>
+                </div>
+                <div class="item wow fadeInUpBig animated animated" data-number="55" style="visibility: visible;">
+                    <i class="fa fa-smile-o"></i>
+                    <p id="number2" class="number">{{ einsaetze_month }}</p>
+                    <span></span>
+                    <p>Einsätze</p>
+                </div>
+                <div class="item wow fadeInUpBig animated animated" data-number="359" style="visibility: visible;">
+                    <i class="fa fa-coffee"></i>
+                    <p id="number3" class="number">{{ taetigkeiten_month }}</p>
+                    <span></span>
+                    <p>Tätigkeiten</p>
+                </div>
+                <div class="item wow fadeInUpBig animated animated" data-number="246" style="visibility: visible;">
+                    <i class="fa fa-camera"></i>
+                    <p id="number4" class="number">{{ uebungen_month }}</p>
+                    <span></span>
+                    <p>Übungen</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <br>
+    <hr>
+    <br>
+{% endblock %}

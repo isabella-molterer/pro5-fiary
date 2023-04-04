@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Eintrag speichern{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+</head>
+
+<body>
+    <style>
+        body {
+            font-family: 'Montserrat', Arial, Helvetica, cursive, monospace;
+            font-size: 10pt;
+        }
+        h1 {
+            font-size: 18pt;
+        }
+
+        h2 {
+            font-size: 14pt;
+            margin-top: 25px;
+        }
+
+        th {
+            width: 40%;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        h4 {
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .streifen {
+            width: auto;
+            height: 0.3%;
+            background-color: rgb(141, 4, 3);
+            overflow:auto;
+            margin-top: 2%;
+            margin-bottom: 2%;
+        }
+
+        #fiaryimage {
+            background-image: url("../../public/assets/img/logo.png");
+            height: auto;
+            width: auto;
+        }
+
+        #fiaryheading {
+            text-align: center;
+        }
+
+        .entry {
+            page-break-after: always;
+        }
+
+    </style>
+
+    <h1 id="fiaryheading">FIARY</h1>
+    <div class="streifen"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                {% for eintrag in eintraege %}
+                    <div class="entry">
+                        <h1>{{ eintrag.beschreibung }}</h1>
+                        <span>Datum: {{ eintrag.beginnDatum|date('d.m.Y') }}</span>
+
+                        {% if eintrag.kategorie %}
+                            <p>
+                                <span>Kategorie:</span>
+                                <span> {{ eintrag.kategorie }} </span>
+                            </p>
+                        {% endif %}
+
+                        {% if unterkategorie[ loop.index0 ] %}
+                            <p>
+                                <span>Unterkategorie:</span>
+                                <span> {{ unterkategorie[ loop.index0 ] }} </span>
+                            </p>
+                        {% endif %}
+
+                        {% if eintrag.unterunterkategorie %}
+                            <span>Technische Einsatzart:</span>
+                            <span> {{ techeinsatz[ loop.index0 ] }} </span>
+                        {% endif %}
+
+                        {% if eintrag.uebungsleiter %}
+                            <span>Übungsleiter:</span>
+                            <span> {{ eintrag.uebungsleiter }} </span>
+                        {% endif %}
+
+                        <div class="streifen"></div>
+
+                        <h2>Zeitliche Details</h2>
+
+                        <table style="width: 100%;">
+                            {% if (brandeinsatz[ loop.index0 ] or brandwache[ loop.index0 ] or techeinsatz[ loop.index0 ]) and eintrag.alarmdatum %}
+                                <tr>
+                                    <th>Alarmzeit</th>
+                                    <td>{{ eintrag.alarmdatum|date('d.m.Y') }} - {{ eintrag.alarmzeit|date('h:m') }} Uhr</td>
+                                </tr>
+                            {% endif %}
+
+                            {% if eintrag.beginnDatum %}
+                                <tr>
+                                    <th>Beginn</th>
+                                    <td>{{ eintrag.beginnDatum|date('d.m.Y') }} - {{ eintrag.beginnZeit|date('h:m') }} Uhr</td>
+                                </tr>
+                            {% endif %}
+
+                            {% if eintrag.endeDatum %}
+                                <tr>
+                                    <th>Ende</th>
+                                    <td>{{ eintrag.endeDatum|date('d.m.Y') }} - {{ eintrag.endeZeit|date('h:m') }} Uhr</td>
+                                </tr>
+                            {% endif %}
+                        </table>
+
+                        <div class="streifen"></div>
+
+                        <h2>Örtliche Details</h2>
+                        <p>
+                            {% if eintrag.strasse %}{{ eintrag.strasse }}{% endif %}
+                            {% if eintrag.hausnummer %}{{ eintrag.hausnummer }}, {% endif %}
+                            {% if eintrag.plz %}{{ eintrag.plz }}{% endif %}
+                            {% if eintrag.ort %}{{ eintrag.ort }}{% endif %}
+                        </p>
+
+                        <div class="streifen"></div>
+
+                        <h2>Weitere Details</h2>
+                        {% if eintrag.lagebeimEintreffen %} <h4>Lage beim Eintreffen</h4><p>{{ eintrag.lagebeimEintreffen }}</p> {% endif %}
+                        {% if eintrag.beschreibung %}<h4>Beschreibung</h4> <p>{{ eintrag.beschreibung }}</p> {% endif %}
+                        {% if eintrag.eingesetzteGeraete %}<h4>Eingesetzte Geräte</h4> <p>{{ eintrag.eingesetzteGeraete }}</p> {% endif %}
+
+                        {% if brandeinsatz[ loop.index0 ] and (eintrag.brandausDate or eintrag.brandwacheStartDate or eintrag.brandwacheEndeDate or ausmass[ loop.index0 ] or eintrag.brandobjekte) %}
+                            <h2>Details zum Brand</h2>
+
+                            <table style="width: 100%;">
+                                {% if eintrag.brandausDate %}
+                                    <tr>
+                                        <th>Brandauszeit</th>
+                                        <td>{{ eintrag.brandausDate|date('d.m.Y') }} - {{ eintrag.brandausTime|date('h:m') }} Uhr</td>
+                                    </tr>
+                                {% endif %}
+
+                                {% if eintrag.brandwacheStartDate %}
+                                    <tr>
+                                        <th>Brandwache Start</th>
+                                        <td>{{ eintrag.brandwacheStartDate|date('d.m.Y') }} - {{ eintrag.brandwacheStartTime|date('h:m') }} Uhr</td>
+                                    </tr>
+                                {% endif %}
+
+                                {% if eintrag.brandwacheEndeDate %}
+                                    <tr>
+                                        <th>Brandwache Ende</th>
+                                        <td>{{ eintrag.brandwacheEndeDate|date('d.m.Y') }} - {{ eintrag.brandwacheEndeTime|date('h:m') }} Uhr</td>
+                                    </tr>
+                                {% endif %}
+
+                                {% if ausmass[ loop.index0 ]  %}
+                                    <tr>
+                                        <th>Brandausmass</th>
+                                        <td>{{ ausmass[ loop.index0 ] }}</td>
+                                    </tr>
+                                {% endif %}
+
+                                {% if eintrag.brandobjekte  %}
+                                    <tr>
+                                        <th>Brandobjekte</th>
+                                        <td>{{ eintrag.brandobjekte }} </td>
+                                    </tr>
+                                {% endif %}
+                            </table>
+                        {% endif %}
+
+                        {% if (brandeinsatz[ loop.index0 ] or brandwache[ loop.index0 ] or techeinsatz[ loop.index0 ]) and (eintrag.geschaedigterName or eintrag.geschaedigterAdresse or eintrag.geschaedigterTel or eintrag.geschaedigterKennzeichen )%}
+                            {% if brandeinsatz[ loop.index0 ] or techeinsatz[ loop.index0 ] %}
+                                <h2>Details zum Geschädigten</h2>
+                            {% elseif brandwache[ loop.index0 ] %}
+                                <h2>Brandsicherheitswache</h2>
+                            {% endif %}
+
+                            <table style="width: 100%;">
+                                {% if brandwache[ loop.index0 ] and eintrag.anlass %}
+                                    <tr>
+                                        <th>Anlass</th>
+                                        <td>{{ eintrag.anlass }}</td>
+                                    </tr>
+                                {% endif %}
+
+                                {% if eintrag.geschaedigterName %}
+                                    <tr>
+                                        <th>Geschädigter Name</th>
+                                        <td>{{ eintrag.geschaedigterName }}</td>
+                                    </tr>
+                                {% endif %}
+
+                                {% if eintrag.geschaedigterAdresse %}
+                                    <tr>
+                                        <th>Geschädigte Adresse</th>
+                                        <td>{{ eintrag.geschaedigterAdresse }}</td>
+                                    </tr>
+                                {% endif %}
+
+                                {% if eintrag.geschaedigterTel %}
+                                    <tr>
+                                        <th>Telefonnr. des Geschädigten</th>
+                                        <td>{{ eintrag.geschaedigterTel }}</td>
+                                    </tr>
+                                {% endif %}
+
+                                {% if eintrag.geschaedigterKennzeichen %}
+                                    <tr>
+                                        <th>Kennzeichen des Geschädigten</th>
+                                        <td>{{ eintrag.geschaedigterKennzeichen }}</td>
+                                    </tr>
+                                {% endif %}
+                            </table>
+                        {% endif %}
+
+                        <div class="streifen"></div>
+
+                        {% if wetter[loop.index0] or anwesend[loop.index0] or eintrag.betriebsmittel %}
+                            <h2>Zusätzliche Informationen</h2>
+
+                            <table style="width: 100%;">
+                                {% if wetter[loop.index0] %}
+                                    <tr>
+                                        <th>Wetter</th>
+                                            <td>
+                                                {{ wetter[loop.index0] }}
+                                            </td>
+                                    </tr>
+                                {% endif %}
+
+                                {% if anwesend[loop.index0] %}
+                                    <tr>
+                                        <th>Anwesend</th>
+                                        <td>
+                                            {{ anwesend[loop.index0] }}
+                                        </td>
+                                    </tr>
+                                {% endif %}
+
+                                {% if eintrag.betriebsmittel %}
+                                    <tr>
+                                        <th> Betriebsmittel</th>
+                                        <td>
+                                            {{ eintrag.betriebsmittel }}
+                                        </td>
+                                    </tr>
+
+                                {% endif %}
+                            </table>
+                        {% endif %}
+
+                        {% if eintrag.notizen %}
+                            <h4>Notizen</h4>
+                            <p>{{ eintrag.notizen }}</p>
+                        {% endif %}
+
+                        {% if eintrag.bericht %}
+                            <h4>Bericht</h4>
+                            <p>{{ eintrag.bericht }}</p>
+                        {% endif %}
+
+                        {% if bForms[ loop.index0 ] %}
+                            <h2>Besatzung</h2>
+                        {% endif %}
+
+                        {% for form in bForms[ loop.index0 ] %}
+                            <table style="width: 100%;">
+                                {% if form.idfahrzeugFahrzeug %}
+                                    <tr>
+                                        <th>Fahrzeug</th>
+                                        <td>{{ form.idfahrzeugFahrzeug }} </td>
+                                    </tr>
+                                {% endif %}
+
+                                {% if form.idmitgliederMitglieder %}
+                                    <tr>
+                                        <th>Mitglied</th>
+                                        <td>{{ form.idmitgliederMitglieder }} </td>
+                                    </tr>
+                                {% endif %}
+
+                                {% if form.rolle %}
+                                    <tr>
+                                        <th>Rolle</th>
+                                        <td>{{ form.rolle }} </td>
+                                    </tr>
+                                {% endif %}
+
+                                {% if form.atemschutz %}
+                                    <tr>
+                                        <th>Atemschutz</th>
+                                        <td>Ja</td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <th>Atemschutz</th>
+                                        <td>Nein</td>
+                                    </tr>
+                                {% endif %}
+                            </table>
+                            <br>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

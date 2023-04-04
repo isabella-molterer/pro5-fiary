@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+
+    <title>{% block title %}Neuen Eintrag erstellen{% endblock %}</title>
+
+    <!-- Including the Stylesheet -->
+
+    <link rel="stylesheet" href= "{{ asset('assets/css/progressbar.css') }}">
+    <link rel="stylesheet" href= "{{ asset('assets/css/mystyle.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="{{ asset('assets/js/progressbar.js') }}"></script>
+
+</head>
+
+<body>
+{% block body %}
+
+    <!-- Funktioniert nur hier eingebunden aber nicht im mystyle css?
+    Drum bitte hier lassen und nicht rauslöschen -->
+
+
+
+    <form id="form-id">
+
+        <!--Progressbar-->
+        <ul class='progress'>
+            <li class="active">Kategorie auswählen</li>
+            <li>Allgemeine Details</li>
+            <li>Besatzung</li>
+            <li>Wetter und Straßenbeschaffenheit</li>
+            <li>Zusammenfassung</li>
+        </ul>
+
+        <!-- Allgemein noch eine Variable anlegen vlt statt Eintrag dann die gewählte Kategorie!! -->
+
+        <!-- Auswahl der Eintrags Kategorie-->
+        <fieldset id="kategoriewahl">
+            <h2 class='title'>Kategorie Auswahl</h2>
+            <h3 class='sub-title'>Wähle die Kategorie des Eintrags aus aus</h3>
+            <p>--[Aktuell bringt dich jede Kategorie auf die nächste Seite]--</p>
+            <input type='button' name='next' class='einsatz-button custom-button' value="Einsatz"><br>
+            <input type='button' name='next' class='next-button custom-button' value="Übung"><br>
+            <input type='button' name='next' class='next-button custom-button' value="Tätigkeit"><br>
+        </fieldset>
+
+
+        <!--Einsatzfieldsetz if kategorie ist einsatz-->
+        <fieldset id="einsatz">
+            <h2 class='title'>Einsatzdetails</h2>
+            <h3 class='sub-title'>Bitte gib hier die Details des Einsatzes bekannt!</h3>
+
+            <!-- Hier fehlt noch die Kategorie die ausgewählt wurde -->
+            <p id="kategorie_einfügen">-- [Hier kommt die ausgewählte Kategorie] --</p><br>
+            <!-- Hier muss dann das aus/eingebelendet werden was zu der jeweiligen Kategorie gehört -->
+
+
+            <!-- Eintragsbezeichnung -->
+            <label for="eintragsbezeichnung">Eintragsbezeichnung -  </label><i class="fas fa-info"></i><br>
+            <input id="eintragsbezeichnung" type='text' placeholder='Eintragsbezeichnung'><br>
+
+            <!-- Einsatzart -->
+            <label for="einsatzart">Einsatzart:</label><br>
+            <select id="einsatzart">
+                <option value="brandeinsatz">Brandeinsatz</option>
+                <option value="techeinsatz">Brandsicherheitswache</option>
+                <option value="weiteres1">Technischer Einsatz</option>
+            </select>
+
+            <!-- Ausfahrt -->
+            <!-- bei Ausfahrt & Rückkunft müssen wir Uhrzeit und Tag noch kombinieren! -->
+            <div class="links">
+                <!-- Alarmtag -->
+                <label for="alarmtag">Alarmtag:</label><br>
+                <input id="alarmtag" type='date'>
+
+                <!-- Ausfahrtstag -->
+                <label for="ausfahrttag">Ausfahrtstag:</label><br>
+                <input id="ausfahrttag" type='date'>
+
+                <!-- Rückkunftstag -->
+                <label for="rueckfahrttag">Rückkunftstag:</label><br>
+                <input id="rueckfahrttag" type='date'>
+            </div>
+
+            <div class="rechts">
+                <!-- Alarmzeit -->
+                <label for="alarmzeit">Alarmzeit:</label><br>
+                <input id="alarmzeit" type='time'>
+
+                <!-- Ausfahrtszeit -->
+                <label for="ausfahrtzeit">Ausfahrtszeit:</label><br>
+                <input id="ausfahrtzeit" type='time'>
+
+                <!-- Rückkunftszeit -->
+                <label for="rueckfahrtzeit">Rückkunftszeit:</label><br>
+                <input id="rueckfahrtzeit" type='time'>
+            </div>
+            <br>
+
+            <!-- Eintragsort -->
+            <label for="eintragsort">Eintrags Ort:</label><br>
+            <input id="eintragsort" type='text' placeholder='Eintrags Ort - hier fehlt noch Straße PLZ Ort!'>
+
+            <!-- Anforderer Name -->
+            <label for="anforderername">Anforderer Name:</label><br>
+            <input id="anforderername" type='text' placeholder='Name des Anforderers'>
+
+            <!-- Anforderer Telefonnummer -->
+            <label for="anforderertel">Anforderer Telefonnummer:</label><br>
+            <input id="anforderertel" type='tel' placeholder='+43 699 123 456 789'>
+
+            <!-- Details des Einsatzes -->
+            <label for="details">Eintrags Details:</label><br>
+            <textarea id="details" type='text' placeholder='Eintrags Details kommen hier ... '></textarea><br>
+
+            <!-- Buttons -->
+            <p>Neustart/Abbruch funktioniert aktuell noch nicht</p>
+            <input type='button' name='previous' class='prev-button custom-button' value="Zurück">
+            <input type='button' name='next' class='next-button custom-button' value="Vorwärts"><br>
+
+            <input type='button' name='restart' class='reset-button custom-button' value="Neustart">
+            <input type='button' name='restart' class='reset-button custom-button' value="Abbruch">
+
+
+        </fieldset>
+
+        <!--Allgemeine Details des Eintrags-->
+        <fieldset>
+            <h2 class='title'>Eintrags Details</h2>
+            <h3 class='sub-title'>Bitte gib hier die Details der ausgeübten Aufgabe bekannt!</h3>
+
+            <!-- Hier fehlt noch die Kategorie die ausgewählt wurde -->
+            <p>-- [Hier fehlt noch die ausgewählte Kategorie] --</p><br>
+            <!-- Hier muss dann das aus/eingebelendet werden was zu der jeweiligen Kategorie gehört -->
+
+
+            <!-- Eintragsbezeichnung -->
+            <label for="eintragsbezeichnung">Eintragsbezeichnung -  </label><i class="fas fa-info"></i><br>
+            <input id="eintragsbezeichnung" type='text' placeholder='Eintragsbezeichnung'><br>
+
+            <!-- Einsatzart -->
+            <label for="einsatzart">Einsatzart:</label><br>
+            <select id="einsatzart">
+                <option value="brandeinsatz">Brandeinsatz</option>
+                <option value="techeinsatz">Technischer Einsatz</option>
+                <option value="weiteres1">Weitere Option</option>
+            </select>
+
+            <!-- Ausfahrt -->
+            <!-- bei Ausfahrt & Rückkunft müssen wir Uhrzeit und Tag noch kombinieren! -->
+            <div class="links">
+                <!-- Alarmtag -->
+                <label for="alarmtag">Alarmtag:</label><br>
+                <input id="alarmtag" type='date'>
+
+                <!-- Ausfahrtstag -->
+                <label for="ausfahrttag">Ausfahrtstag:</label><br>
+                <input id="ausfahrttag" type='date'>
+
+                <!-- Rückkunftstag -->
+                <label for="rueckfahrttag">Rückkunftstag:</label><br>
+                <input id="rueckfahrttag" type='date'>
+            </div>
+
+            <div class="rechts">
+                <!-- Alarmzeit -->
+                <label for="alarmzeit">Alarmzeit:</label><br>
+                <input id="alarmzeit" type='time'>
+
+                <!-- Ausfahrtszeit -->
+                <label for="ausfahrtzeit">Ausfahrtszeit:</label><br>
+                <input id="ausfahrtzeit" type='time'>
+
+                <!-- Rückkunftszeit -->
+                <label for="rueckfahrtzeit">Rückkunftszeit:</label><br>
+                <input id="rueckfahrtzeit" type='time'>
+            </div>
+            <br>
+
+            <!-- Eintragsort -->
+            <label for="eintragsort">Eintrags Ort:</label><br>
+            <input id="eintragsort" type='text' placeholder='Eintrags Ort - hier fehlt noch Straße PLZ Ort!'>
+
+            <!-- Anforderer Name -->
+            <label for="anforderername">Anforderer Name:</label><br>
+            <input id="anforderername" type='text' placeholder='Name des Anforderers'>
+
+            <!-- Anforderer Telefonnummer -->
+            <label for="anforderertel">Anforderer Telefonnummer:</label><br>
+            <input id="anforderertel" type='tel' placeholder='+43 699 123 456 789'>
+
+            <!-- Details des Einsatzes -->
+            <label for="details">Eintrags Details:</label><br>
+            <textarea id="details" type='text' placeholder='Eintrags Details kommen hier ... '></textarea><br>
+
+            <!-- Buttons -->
+            <p>Neustart/Abbruch funktioniert aktuell noch nicht</p>
+            <input type='button' name='previous' class='prev-button custom-button' value="Zurück">
+            <input type='button' name='next' class='next-button custom-button' value="Vorwärts"><br>
+
+            <input type='button' name='restart' class='reset-button custom-button' value="Neustart">
+            <input type='button' name='restart' class='reset-button custom-button' value="Abbruch">
+
+
+        </fieldset>
+
+        <!--Besatzung-->
+        <fieldset>
+            <h2 class='title'>Besatzung</h2>
+            <h3 class='sub-title'>Bitte die jeweilige Besatzung den Fahrzeugen zuweisen!</h3>
+            <p>Hier kommen Fahrzeuge + DropDown Mechanismen</p>
+
+            <!-- Buttons -->
+            <p>Neustart/Abbruch funktioniert aktuell noch nicht</p>
+            <input type='button' name='previous' class='prev-button custom-button' value="Zurück">
+            <input type='button' name='next' class='next-button custom-button' value="Vorwärts"><br>
+
+            <input type='button' name='restart' class='reset-button custom-button' value="Neustart">
+            <input type='button' name='restart' class='reset-button custom-button' value="Abbruch">
+
+        </fieldset>
+
+        <!-- Wetter und Straßenbeschaffenheit -->
+        <fieldset>
+
+            <!-- Wetter -->
+            <h2 class='title'>Wetter Straßenbeschaffenheit</h2>
+            <h3 class='sub-title'>Bitte die Wetterumstände des Eintrags auswählen:</h3>
+
+            <label for="sonne">Sonne</label>
+            <input id="sonne" type="checkbox" name="sonne" value="sonne" class="checkmark">
+
+            <label for="wolken">Wolken</label>
+            <input id="wolken" type="checkbox" name="wolken" value="wolken" class="checkmark">
+
+            <label for="wind">Wind</label>
+            <input id="wind" type="checkbox" name="wind" value="wind" class="checkmark">
+
+
+            <!-- Straßenbeschaffenheit -->
+            <h2 class='title'>Straßenbeschaffenheit</h2>
+            <h3 class='sub-title'>Bitte die Straßenbeschaffenheit des Eintrags auswählen:</h3>
+
+            <label for="eis">Eis</label>
+            <input id="eis" type="checkbox" name="sonne" value="sonne" class="checkmark">
+
+            <label for="schnee">Schnee</label>
+            <input id="schnee" type="checkbox" name="wolken" value="wolken" class="checkmark">
+
+            <label for="mehr">Mehr</label>
+            <input id="mehr" type="checkbox" name="wind" value="wind" class="checkmark">
+
+
+            <!-- Buttons -->
+            <p>Neustart/Abbruch funktioniert aktuell noch nicht</p>
+            <input type='button' name='previous' class='prev-button custom-button' value="Zurück">
+            <input type='button' name='next' class='next-button custom-button' value="Vorwärts"><br>
+
+            <input type='button' name='restart' class='reset-button custom-button' value="Neustart">
+            <input type='button' name='restart' class='reset-button custom-button' value="Abbruch">
+
+        </fieldset>
+
+        <!-- Zusammenfassung -->
+        <fieldset>
+            <h2 class='title'>Zusammenfassung</h2>
+            <h3 class='sub-title'>Hier kommt noch die Zusammenfassung hin</h3>
+            <input type='text' name='first-name' placeholder='First Name'>
+            <input type='text' name='last-name' placeholder='Last-Name'>
+            <input type='text' name='phone-no' placeholder='Phone No.'>
+            <input type='text' name='address' placeholder='Address'>
+
+            <!-- Buttons -->
+            <p>Neustart/Abbruch funktioniert aktuell noch nicht</p>
+            <input type='button' name='previous' class='prev-button custom-button' value="Zurück">
+            <input type='button' name='next' class='next-button custom-button' value="Vorwärts"><br>
+
+            <input type='button' name='restart' class='reset-button custom-button' value="Neustart">
+            <input type='button' name='restart' class='reset-button custom-button' value="Abbruch">
+
+        </fieldset>
+        </form>
+
+
+
+{% endblock %}
+
+</body>
+</html>

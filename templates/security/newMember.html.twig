@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Neues Mitglied anlegen!{% endblock %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+    <style>
+        h2 {
+            color: var(--red);
+        }
+
+        #form {
+            width: 85%;
+        }
+    </style>
+
+    <div class="form">
+        <!-- Headline of the Register Form  -->
+        <h2 class="active"> Neues Mitglied anlegen</h2><br>
+
+        {{ form_start(form , {'attr': {'novalidate':'novalidate'}} ) }}
+            {{ form_row(form.standesbuchnummer, {attr: {class: 'text'} }) }}
+            {{ form_row(form.dienstgrad, {attr: {class: 'text'} }) }}
+            {{ form_row(form.vorname, {attr: {class: 'text'} }) }}
+            {{ form_row(form.nachname, {attr: {class: 'text'} }) }}
+            {{ form_row(form.telefonNr, {attr: {class: 'text'} }) }}
+            {{ form_row(form.mobil, {attr: {class: 'text'} }) }}
+            {{ form_row(form.email, {attr: {class: 'text'} })  }}
+            {{ form_row(form.atemschutztauglich) }}
+        <button type="submit" class="bigredbutton">Add member</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Neuen Eintrag erstellen{% endblock %}</title>
+
+    <!-- Including the Stylesheet -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('assets/css/progressbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/mystyle.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="{{ asset('assets/js/progressbar.js') }}"></script>
+</head>
+
+<body>
+{% block body %}
+    <!-- Funktioniert nur hier eingebunden aber nicht im mystyle css?
+    Drum bitte hier lassen und nicht rauslöschen -->
+
+    <!--<form id="form-id">-->
+    {{ form(form_einsatz,  {'attr': {'novalidate':'novalidate'}}) }}
+    <!--</form>-->
+{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,7 @@
+
+app.form.flow.createEntry:
+        class: App\Form\CreateEntryFlow
+        parent: craue.form.flow
+        autowire: true
+        autoconfigure: false
+        public: true

@@ -1,0 +1,228 @@
+<?php
+
+namespace App\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+
+/**
+ * Entity
+ *
+ * @ORM\Table(name="logbuch")
+ * @ORM\Entity
+ */
+class Entry
+{
+    /**
+     * @ORM\Id
+     * @ORM\Column(name="idlogbuch", type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $idlogbuch;
+
+    /**
+     * @OneToMany(targetEntity="EntryKategorie", mappedBy="idcategory", cascade={"ALL"}, indexBy="kategorie")
+     */
+    protected $kategorie;
+
+    /**
+     *
+     * @OneToMany(targetEntity="EinsatzArt", mappedBy="ideinsatzart", cascade={"ALL"}, indexBy="unterkategorie")
+     */
+    protected $unterkategorie;
+
+    /**
+     *
+     * @Assert\NotBlank()
+     * @ORM\Column(name="beschreibung", type="text")
+     */
+    protected $beschreibung;
+
+
+    /**
+     * @Assert\DateTime
+     *
+     * @ORM\Column(name="alarmzeit" type="datetime")
+     */
+    protected $alarmzeit;
+
+    /**
+     * @Assert\Length(min="3", max="255")
+     * @ORM\Column(name="anforderer_name", type="string", nullable=TRUE)
+     */
+    protected $anforderer_name;
+
+    /**
+     *
+     * @Assert\Regex(
+     *     pattern="/^(0|\+)[0-9]/",
+     *     message="Please enter a valid phone number"
+     * )
+     * @ORM\Column(name="anforderer_telefon_nr", type="integer", nullable=TRUE)
+     */
+    protected $anforderer_telefon_nr;
+
+    /**
+     * @Assert\Date
+     *
+     * @ORM\Column(name="beginn_datum")
+     */
+    protected $beginn_datum;
+
+    /**
+     * @Assert\Time
+     *
+     * @ORM\Column(name="beginn_zeit")
+     */
+    protected $beginn_zeit;
+
+    /**
+     * @Assert\Date
+     *
+     * @ORM\Column(name="ende_datum")
+     */
+    protected $ende_datum;
+
+    /**
+     * @Assert\Time
+     *
+     * @ORM\Column(name="ende_zeit")
+     */
+    protected $ende_zeit;
+
+    /**
+     *
+     * @Assert\Length(
+     *     min=4
+     *     max=4
+     *     exactMessage="This value should have exactly {{ limit }} characters.")
+     *
+     * @ORM\Column(name="plz", type="integer", length="4")
+     */
+    protected $plz;
+
+
+    /**
+     *
+     * @Assert\Length(min="2", max="255")
+     * @ORM\Column(name="ort", type="string")
+     */
+    protected $ort;
+
+    /**
+     * @var string
+     * @Assert\Length(min="3", max="600")
+     * @ORM\Column(name="straße", type="string")
+     */
+    protected $straße;
+
+    /**
+     *
+     * @Assert\Length(max="255")
+     * @ORM\Column(name="hausnummer", type="string")
+     */
+    protected $hausnummer;
+
+    /**
+     * @Assert\Length(min="1", max="255")
+     * @ORM\Column(name="betriebsmittel", type="string", nullable=TRUE)
+     */
+    protected $betriebsmittel;
+
+
+    /**
+     *
+     *
+     * @ORM\Column(name="bericht", type="text", nullable=TRUE)
+     */
+    protected $bericht;
+
+    /**
+     *
+     * @ORM\Column(name="wetter", type="array", nullable=TRUE)
+     */
+    protected $wetter;
+
+    /**
+     *
+     * @ORM\Column(name="bodenbeschaffenheit", type="array", nullable=TRUE)
+     */
+    protected $bodenbeschaffenheit;
+
+    /**
+     *
+     * @ORM\Column(name="notizen", type="text", nullable=TRUE)
+     */
+    protected $notizen;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="idbenutzer_benutzer")
+     * @OneToMany(targetEntity="IdBenutzer", mappedBy="idbenutzer", cascade={"ALL"}, indexBy="idbenutzer")
+     */
+    protected $idbenutzer;
+
+    /**
+     * @Assert\DateTime
+     *
+     * @ORM\Column(name="metadata", type="datetime")
+     */
+    protected $metaData; //current datetime, when entry is entered
+
+
+
+
+
+
+
+    /**
+     * @Assert\Image()
+     */
+    protected $headshot;
+
+    public function setHeadshot(File $file = null)
+    {
+        $this->headshot = $file;
+    }
+
+    public function getHeadshot()
+    {
+        return $this->headshot;
+    }
+
+
+
+
+
+
+
+}
+
+/**
+ * Entity
+ *
+ * @ORM\Table(name="kategorie")
+ * @ORM\Entity
+ */
+class EntryKategorie
+{
+
+}
+
+/**
+ * Entity
+ *
+ * @ORM\Table(name="einsatzart")
+ * @ORM\Entity
+ */
+class EinsatzArt
+{
+
+}
+
+
+

@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit User{% endblock %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+    <style>
+        .panel {
+            width: 80%;
+            color: var(--red);
+        }
+
+        .panel-heading {
+            text-transform: uppercase;
+            color: var(--red);
+            font-weight: bold;
+        }
+
+        h5 {
+            color: var(--red);
+            font-weight: bold;
+        }
+
+        .panel-body {
+            text-transform: capitalize;
+        }
+
+        .panel {
+            background-image: none;
+        }
+
+        #form_submit {
+            background-color: var(--red);
+            color: #FFF;
+            width: 20vw;
+            padding: 10px 20px;
+            display: block;
+            border-radius: 10px;
+            border: none;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        #form_submit:hover {
+            background: #c10612;
+            cursor: pointer;
+        }
+    </style>
+
+    <div class="panel" id="panelcss">
+        <h5>Current Member:</h5>
+        <div class="panel-heading">
+            "{{ member.vorname }} {{ member.nachname }} "
+        </div><br>
+
+        <div class="panel-body">
+            {{ form_start(form , {'attr': {'novalidate':'novalidate'}} ) }}
+            {{ form_row(form.standesbuchnummer, {attr: {class: 'text'} }) }}
+            {{ form_row(form.dienstgrad, {attr: {class: 'text'} }) }}
+            {{ form_row(form.vorname, {attr: {class: 'text'} }) }}
+            {{ form_row(form.nachname, {attr: {class: 'text'} }) }}
+            {{ form_row(form.telefonNr, {attr: {class: 'text'} }) }}
+            {{ form_row(form.mobil, {attr: {class: 'text'} }) }}
+            {{ form_row(form.email, {attr: {class: 'text'} })  }}
+            {{ form_row(form.atemschutztauglich) }}
+            <button type="submit" class="bigredbutton">Add member</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

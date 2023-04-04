@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Hello!{% endblock %}</title>
+
+    <!-- Including the Stylesheet -->
+    <link rel="stylesheet" href= "{{ asset('assets/css/loginform.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+</head>
+
+<body>
+  {% block body %}
+
+    <div class="login">
+        <img  src=" {{ asset('assets/img/logo_white.png') }}" alt="logout symbol">
+        <br>
+
+        <!-- Headline of the Login Form  -->
+        <h2 class="active"> Welcome to Fiary! </h2>
+
+        <form action="{{ path('login') }}" method="POST">
+            <!-- Error Messages here-->
+            {% if error %}
+              <span class="error">{{ error.messageKey }}</span>
+            {% endif %}
+
+            <!-- Username Field -->
+            <input type="text" class="text" name="_username" value="{{ last_username }}" placeholder="Username">
+            <span>username</span>
+
+            <!-- Formatting -->
+            <br>
+            <br>
+
+            <!-- Password Field -->
+            <input type="password" class="text" name="_password" placeholder="Password">
+            <span>password</span>
+            <br>
+
+            <button type="submit" class="signin">
+              Login
+            </button>
+
+            <hr>
+
+            <br><br>
+        </form>
+    </div>
+  {% endblock %}
+</body>
+</html>

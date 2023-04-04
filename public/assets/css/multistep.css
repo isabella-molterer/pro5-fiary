@@ -1,0 +1,637 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+*{
+    margin:0;
+    padding:0;
+}
+
+/* Color Constants */
+:root {
+    --grey: #505050;
+    --red: rgb(141, 4, 3);
+}
+
+/* Die Color Konstanten können folgendermaßen genutzt werden - Beispiel:
+background: var(--grey); */
+
+/* Start Login CSS */
+
+body{
+    background: var(--grey);
+}
+
+#editEntry body {
+    background: #fff;
+}
+
+/* Aussehen des eigentlichen Forms */
+#form-id{
+    width:85%;
+    margin:50px auto;
+    text-align:center;
+    position: relative;
+}
+
+#form-id fieldset{
+    background:#fff;
+    border:0 none;
+    border-radius:3px;
+    box-sizing:border-box;
+    padding:20px 30px;
+    width:80%;
+    margin:0 10%;
+    position: relative;
+}
+#form-id fieldset:not(:first-of-type){
+    display:none;
+}
+
+#form-id input, .home-button, #form-id button, .colorButton{
+    border:1px solid #ccc;
+    border-radius:3px;
+    padding:15px;
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom:15px;
+    font-size:13px;
+    box-sizing:border-box;
+    width:100%;
+    text-decoration:none;
+}
+
+#form-id textarea {
+    border:1px solid #ccc;
+    border-radius:3px;
+    padding:15px;
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom:15px;
+    font-size:13px;
+    box-sizing:border-box;
+    width:100%;
+}
+
+#form-id select {
+    border:1px solid #ccc;
+    border-radius:3px;
+    padding:15px;
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom:15px;
+    font-size:13px;
+    box-sizing:border-box;
+    width:100%;
+}
+
+/*
+.links {
+    width: 50%;
+    float: left;
+}
+
+.clear {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.rechts {
+    width: 50%;
+    float: right;
+}*/
+
+#form-id .custom-button{
+    width:100px;
+    background: var(--red);
+    font-weight: bold;
+    color:#fff;
+    border:0;
+    padding:10px;
+    margin:10px;
+}
+
+#form-id .custom-button:active{
+    width:100px;
+    background: white;
+    font-weight: bold;
+    color:#fff;
+    border:0;
+    padding:10px;
+    margin:10px;
+}
+
+
+#form-id .custom-button:hover{
+    box-shadow:0 0 0 2px #fff, 0 0 0 4px var(--red);
+}
+
+.white{
+    background-color:white!important;
+    color:black!important;
+}
+
+.title{
+    font-size:15px;
+    margin-bottom:10px;
+    color:var(--red);
+    text-transform:uppercase;
+}
+.sub-title{
+    font-size:13px;
+    margin-bottom:20px;
+    font-weight:normal;
+    color:#666;
+}
+/*Progressbar*/
+.craue_formflow_steplist {
+    margin-bottom: 40px;
+    /*CSS counters to number the steps*/
+    counter-reset: step;
+}
+.craue_formflow_steplist li {
+    margin-bottom: 20px;
+    list-style-type: none;
+    color: white;
+    text-transform: uppercase;
+    font-size: 0.8em;
+    width: 20%;
+    float: left;
+    position: relative;
+    word-wrap: break-word;
+}
+
+.craue_formflow_steplist li>a{
+text-decoration:none;
+    color: white;
+}
+.craue_formflow_steplist li:before {
+    content: counter(step);
+    counter-increment: step;
+    width: 20px;
+    line-height: 20px;
+    display: block;
+    font-size: 10px;
+    color: #333;
+    background: white;
+    border-radius: 3px;
+    margin: 0 auto 5px auto;
+}
+/*progressbar connectors*/
+.craue_formflow_steplist li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    position: absolute;
+    left: -50%;
+    top: 9px;
+    z-index:-1; /*put it behind the numbers*/
+}
+.craue_formflow_steplist li:first-child:after {
+    /*connector not needed before the first step*/
+    content: none;
+}
+/*marking active/completed steps green*/
+/*The number of the step and the connector before it = green*/
+.craue_formflow_steplist li.craue_formflow_current_step:before,  .craue_formflow_steplist li.craue_formflow_current_step:after, .craue_formflow_steplist li.craue_formflow_done_step:before{
+    background: var(--red);
+    color: white;
+}
+
+.craue_formflow_steplist li.craue_formflow_done_step:after{
+    background-color:var(--red);
+}
+
+/* Checkbox CSS */
+
+/* Kommt hier noch */
+
+/* Focus Colors */
+
+input:focus {
+    outline: none !important;
+    border-color: #8d0403;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);
+}
+
+select:focus {
+    outline: none !important;
+    border-color: #8d0403;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);
+}
+
+textarea:focus {
+    outline: none !important;
+    border-color: #8d0403;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);
+}
+
+fieldset:focus {
+    outline: none !important;
+    border-color: #8d0403;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);
+}
+
+
+.legends{
+    font-size: 1rem;
+    color: var(--red);
+    margin-top: 10px;
+    font-weight: 600;
+}
+
+#brandeinsatz, #technischerEinsatz, #brandsicherheitswache{
+    padding:5px;
+    background-color: #f1f1f1;
+}
+
+div#ort, div#geschädigter{
+    border: 1px solid #e3e3e3;
+    padding:5px;
+}
+
+#form-id div > label:nth-child(1), #form-id fieldset div.einsatz>label.required, div.allgemein div.links label.required,
+form#form-id fieldset div#allgemein label.required{
+    font-weight: bold;
+
+    font-variant-caps: all-small-caps;
+
+    font-size: 1.2em;
+    color:var(--red);
+}
+
+.colorButton, .colorButton:hover, .colorButton:active{
+    color:white;
+    text-decoration:none;
+}
+
+.left{
+    float:left;
+}
+
+#form-id fieldset div.einsatz > label.required{
+    width:100%;
+
+}
+
+div.checkboxFormat>label{
+    font-weight:lighter!important;
+    font-size:0.8em !important;
+
+}
+div.checkboxFormat>label>input{
+   margin-bottom:0!important;
+}
+
+.errors{
+    background: #8d0403;
+
+}
+
+
+/*Toggled Sidebar in New-Entry*/
+
+#wrapper {
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -webkit-transition: all 0.5s ease;
+    padding-right: 0;
+    transition: all 0.5s ease;
+
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    width: 300px;                       /* SZEROKOŚĆ SIDEBARA */
+    display:inherit;
+
+}
+
+#sidebar-wrapper {
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -webkit-transition: all 0.5s ease;
+                   /* KOLOR SIDEBARA */
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    transition: all 0.5s ease;
+    width: 0;
+    z-index: 1000;
+    display:none;
+    right:0;
+    position:fixed;
+    top:20px;
+
+}
+
+
+#sidebar-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.sidebar-navnew {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    width: 300px;
+    right: 0;/* SZEROKOŚĆ ZAWARTOŚCI SIDEBARA */
+    background:var(--red);
+    z-index:1000;
+}
+
+.sidebar-navnew li {
+    display: inline-block;
+    line-height: 20px;
+    position: relative;
+    width: 100%;
+}
+
+.sidebar-navnew li a {
+    color: #dddddd;
+    display: block;
+    padding: 10px 15px 10px 30px;
+    text-decoration: none;
+}
+
+.sidebar-navnew .dropdown-menu {
+    background-color: grey;             /* KOLOR BG DROPDOWNA */
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    width: 100%;
+}
+
+.sidebar-navnew li a:hover,
+.sidebar-navnew li a:active,
+.sidebar-navnew li a:focus,
+.sidebar-navnew li.active a,
+.sidebar-navnew li.active a:hover,
+.sidebar-navnew li.active a:active,
+.sidebar-navnew li.active a:focus {
+    background-color: transparent;
+    color: red;
+    text-decoration: none;
+}
+
+.sidebar-navnew > .sidebar-brand {
+    font-size: 20px;
+    height: 65px;
+    line-height: 44px;
+}
+
+
+.hamburger {
+    background: var(--red);
+    border: none;
+    display: block;
+    height: 40px;
+    margin-right: 0px;
+    position: fixed;
+    top: 20px;
+    width: 32px;
+    right: 0;
+    padding-right:50px;
+    padding-left:10px;
+    padding-top: 10px;
+    padding-bottom:10px;
+    z-index: 1001;
+}
+
+.hamburger:hover,
+.hamburger:focus,
+.hamburger:active {
+    outline: none;
+}
+
+.hamburger.open-navnew:before {
+    -webkit-transform: translate3d(0, 0, 0);
+    -webkit-transition: all 0.35s ease-in-out;
+    color: #ffffff;
+    content: '';
+    display: block;
+    font-size: 14px;
+    line-height: 32px;
+    opacity: 0;
+    text-align: center;
+    width: 100px;
+}
+
+.hamburger.open-navnew:hover before {
+    -webkit-transform: translate3d(100px, 0, 0);
+    -webkit-transition: all 0.35s ease-in-out;
+    display: block;
+    opacity: 1;
+}
+
+.hamburger.open-navnew:hover .hamb-top {
+    -webkit-transition: all 0.35s ease-in-out;
+    top: 0;
+}
+
+.hamburger.open-navnew:hover .hamb-bottom {
+    -webkit-transition: all 0.35s ease-in-out;
+    bottom: 0;
+}
+
+.hamburger.open-navnew .hamb-top {
+    -webkit-transition: all 0.35s ease-in-out;
+    background-color: rgba(255, 255, 255, 0.7);
+    top: 5px;
+}
+
+.hamburger.open-navnew .hamb-middle {
+    background-color: rgba(255, 255, 255, 0.7);
+    margin-top: -2px;
+    top: 50%;
+}
+
+.hamburger.open-navnew .hamb-bottom {
+    -webkit-transition: all 0.35s ease-in-out;
+    background-color: rgba(255, 255, 255, 0.7);
+    bottom: 5px;
+}
+
+.hamburger.open-navnew .hamb-top,
+.hamburger.open-navnew .hamb-middle,
+.hamburger.open-navnew .hamb-bottom {
+    height: 4px;
+    left: 0;
+    position: absolute;
+    width: 100%;
+}
+
+
+
+/* FOR left side */
+.navbarnew-fixed-top {
+    left: auto;
+}
+
+
+/*Häuserliste in Navbar*/
+#häuser_newentry_length{
+    text-align:right!important;
+    float:right!important;
+    padding-top:20px!important;
+
+}
+.dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate{
+    color:white!important;
+}
+
+
+#homebutton{
+    background:var(--red);
+}
+#häuser_newentry_wrapper{
+    padding-top:70px;
+    padding-right:10px;
+    padding-left:10px;
+}
+
+th.sorting, th.sorting_asc{
+    color:white!important;
+}
+
+.dataTables_wrapper .dataTables_filter{
+    text-align:center!important;
+    float:unset!important;
+
+}
+.dataTables_wrapper .dataTables_filter input{
+    padding:10px!important;
+}
+
+thead{
+    background:var(--grey)!important;
+}
+
+#häuser_newentry_previous,#häuser_newentry_next{
+    color:white!important;
+}
+
+div#createEntry_besatzung li{
+    list-style-type:none;
+    margin-bottom:30px;
+}
+
+.remove-tag{
+
+}
+
+div#createEntry_besatzung>div{
+    margin-bottom:30px;
+}
+
+
+/* Responsive */
+
+@media screen and (min-width: 651px) and (max-width: 700px) {
+
+    .craue_formflow_steplist li {
+        margin-bottom: 20px;
+        list-style-type: none;
+        color: white;
+        text-transform: uppercase;
+        width: 20%;
+        float: left;
+        position: relative;
+        font-size: 0.6em;
+        word-wrap: break-word;
+        padding-left: 3%;
+    }
+
+}
+
+@media screen and (min-width: 601px) and (max-width: 1000px) {
+
+    #form-id fieldset{
+        background:#fff;
+        border:0 none;
+        border-radius:3px;
+        width: 100%;
+        margin-left: auto;
+    }
+
+    .container {
+        width: 100%;
+        margin: auto;
+        padding: 0;
+    }
+
+    #page-content-wrapper {
+        width: 100%;
+        margin: auto;
+        padding: 0;
+    }
+
+    /*Progressbar*/
+    .craue_formflow_steplist {
+        margin: 17% auto 5% auto;
+        /*CSS counters to number the steps*/
+        counter-reset: step;
+        word-break: break-all;
+
+    }
+
+    .craue_formflow_steplist li {
+        margin-bottom: 20px;
+        list-style-type: none;
+        color: white;
+        text-transform: uppercase;
+        width: 20%;
+        float: left;
+        position: relative;
+        font-size: 0.6em;
+        word-wrap: break-word;
+        padding-left: 3%;
+    }
+}
+
+
+@media screen and (max-width: 650px) {
+
+    /* Fieldset */
+
+    #form-id {
+        width: 94%;
+        margin: 50px auto;
+        text-align: center;
+        position: relative;
+    }
+
+    #form-id fieldset{
+        background:#fff;
+        border:0 none;
+        border-radius:3px;
+        width: 100%;
+        margin-left: auto;
+    }
+
+    .container {
+        width: 100%;
+        margin: auto;
+        padding: 0;
+    }
+
+    #page-content-wrapper {
+        width: 100%;
+        margin: auto;
+        padding: 0;
+    }
+
+    .craue_formflow_steplist li {
+        margin-bottom: 20px;
+        list-style-type: none;
+        color: white;
+        text-transform: uppercase;
+        width: 20%;
+        float: left;
+        position: relative;
+        font-size: 0;
+    }
+
+
+
+}

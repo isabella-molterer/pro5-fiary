@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Neuen Eintrag erstellen{% endblock %}</title>
+
+    <!-- Including the Stylesheet -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('assets/css/progressbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/mystyle.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="{{ asset('assets/js/progressbar.js') }}"></script>
+
+    <style>
+        #fiaryimage {
+            width: 13%;
+            height: 13%;
+            margin: 2% auto -2% auto;
+        }
+
+        #fiaryimage img {
+            width: 100%;
+            height: 65%;
+        }
+    </style>
+</head>
+
+<body>
+{% block body %}
+    <div id="wrapper">
+        <div id="fiaryimage">
+            <img src="{{  asset('assets/img/logo.png') }}" alt="logo homepage">
+        </div>
+
+        <nav class="navbarnew navbarnew-inverse navbarnew-fixed-top" id="sidebar-wrapper" role="navigation">
+            <ul class="navnew sidebar-navnew">
+                <li class="active">
+                    <table class="fixed_header table display" id="häuser_newentry"  style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Str.</th>
+                                <th>Nr.</th>
+                                <th>Bew.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for haus in haeuser %}
+                                <tr>
+                                    <td>{% if haus.strasse %}{{ haus.strasse }}{% else %}  {% endif %}</td>
+                                    <td> {% if haus.hausNr %}{{ haus.hausNr }}{% else %}  {% endif %}</td>
+                                    <td>{% if haus.bewohner %}{{ haus.bewohner }}{% else %}  {% endif %}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </li>
+            </ul>
+        </nav>
+        <!-- /#sidebar-wrapper -->
+        <div id="page-content-wrapper">
+            <button type="button" id="homebutton" class="hamburger open-navnew is-closed animated fadeInLeft">
+                <i><img src="{{  asset('assets/img/home_big.svg') }}" alt="home symbol"></i>
+            </button>
+
+            <div class="container">
+                {{ form_start(form_einsatz, {attr: {id: 'form-id'} }) }}
+
+                <!--Progressbar-->
+                <ul class='progressbar'>
+                    <li class="active">Kategorie auswählen</li>
+                    <li>Allgemeine Details</li>
+                    <li>Zusatzinfos</li>
+                    <li>Besatzung</li>
+                    <li>Zusammenfassung</li>
+                </ul>
+
+                <!-- Allgemein noch eine Variable anlegen vlt statt Eintrag dann die gewählte Kategorie!! -->
+
+                <!-- Auswahl der Eintrags Kategorie-->
+                <fieldset id="kategoriewahl">
+                    <h2 class='title'>Kategorie Auswahl</h2>
+                    <h3 class='sub-title'>Wähle die Kategorie des Eintrags aus!</h3>
+
+                    <input type='button' name='next' class='next-button custom-button kategorie' value="Einsatz"><br>
+                    <input type='button' name='next' class='next-button custom-button kategorie' value="Übung"><br>
+                    <input type='button' name='next' class='next-button custom-button kategorie' value="Tätigkeit"><br>
+                    <div style="display:none;">
+                    {{ form_row(form_einsatz.kategorie) }}
+                    </div>
+                </fieldset>
+
+                <!--Einsatzfieldsetz if kategorie ist einsatz-->
+                <fieldset>
+
+                    <h2 class='title' id="title">Einsatzdetails</h2>
+                    <h3 class='sub-title' id="subtitle">Bitte gib hier die Details des Einsatzes bekannt!</h3>
+
+                    <!-- Hier fehlt noch die Kategorie die ausgewählt wurde -->
+                    <p id="kategorie_einfügen">-- [Hier kommt die ausgewählte Kategorie] --</p><br>
+                    <!-- Hier muss dann das aus/eingebelendet werden was zu der jeweiligen Kategorie gehört -->
+
+                    <!-- bei jeder kategorie bleibt dropdown mit unterkategorie - nur über js werden andere auswähloptionen ein/ausgeblendet-->
+                    <div class="allgemein">
+                        {{ form_row(form_einsatz.unterkategorie,  {attr: {id: 'underkategorie'} }) }}
+                    </div>
+
+                    <div class="allgemein">
+                        <div id="uhrzeit clear">
+                            <p class="legends">Zeitliche Details:</p>
+
+                            <div class="form-row einsatz">
+                                <div class="col-12 col-sm-12 col-md-6">
+                                    {{ form_label(form_einsatz.alarmdatum, 'Datum der Alarmierung') }}
+                                    {{ form_errors(form_einsatz.alarmdatum) }}
+                                    {{ form_widget(form_einsatz.alarmdatum) }}
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-6">
+                                    {{ form_label(form_einsatz.alarmzeit, 'Uhrzeit der Alarmierung') }}
+                                    {{ form_errors(form_einsatz.alarmzeit) }}
+                                    {{ form_widget(form_einsatz.alarmzeit) }}
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-12 col-sm-12 col-md-6">
+                                    <div class="einsatz"> {{ form_label(form_einsatz.beginnDatum, 'Datum Einsatzbeginn') }}</div>
+                                    <div class="uebung">{{ form_label(form_einsatz.beginnDatum, 'Datum Übungsbeginn') }}</div>
+                                    {{ form_errors(form_einsatz.beginnDatum) }}
+                                    {{ form_widget(form_einsatz.beginnDatum) }}
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-6">
+                                    <div class="einsatz">{{ form_label(form_einsatz.beginnZeit, 'Zeit Einsatzbeginn') }}</div>
+                                    <div class="uebung"> {{ form_label(form_einsatz.beginnZeit, 'Zeit Übungsbeginn') }}</div>
+                                    {{ form_errors(form_einsatz.beginnZeit) }}
+                                    {{ form_widget(form_einsatz.beginnZeit) }}
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-12 col-sm-12 col-md-6">
+                                    <div class="einsatz"> {{ form_label(form_einsatz.endeDatum, 'Datum Einsatzende') }}</div>
+                                    <div class="uebung"> {{ form_label(form_einsatz.endeDatum, 'Datum Übungsende') }}</div>
+                                    {{ form_errors(form_einsatz.endeDatum) }}
+                                    {{ form_widget(form_einsatz.endeDatum) }}
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-6">
+                                    <div class="einsatz"> {{ form_label(form_einsatz.endeZeit, 'Zeit Einsatzende') }}</div>
+                                    <div class="uebung"> {{ form_label(form_einsatz.endeZeit, 'Zeit Übungsende') }}</div>
+                                    {{ form_errors(form_einsatz.endeZeit) }}
+                                    {{ form_widget(form_einsatz.endeZeit) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="ort">
+                            <p class="legends">Örtliche Details:</p>
+
+                            <div class="form-row">
+                                <div class="col-12 col-sm-12 col-md-6">
+                                    {{ form_label(form_einsatz.strasse, 'Straße') }}
+                                    {{ form_errors(form_einsatz.strasse) }}
+                                    {{ form_widget(form_einsatz.strasse,  {attr: {'placeholder': 'Musterstraße'} }) }}
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-6">
+                                    {{ form_label(form_einsatz.hausnummer, 'Hausnummer') }}
+                                    {{ form_errors(form_einsatz.hausnummer) }}
+                                    {{ form_widget(form_einsatz.hausnummer,  {attr: {'placeholder': '1'} }) }}
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-12 col-sm-12 col-md-6">
+                                    {{ form_label(form_einsatz.plz, 'PLZ') }}
+                                    {{ form_errors(form_einsatz.plz) }}
+                                    {{ form_widget(form_einsatz.plz,  {attr: {'placeholder': '3353'} }) }}
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-6">
+                                    {{ form_label(form_einsatz.ort, 'Ort') }}
+                                    {{ form_errors(form_einsatz.ort) }}
+                                    {{ form_widget(form_einsatz.ort,  {attr: {'placeholder': 'Musterstadt'} }) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Allgemeine Infos -->
+
+                    <div class="einsatz uebung">
+                        <div class="form-row">
+                            <div class="col-12" id="lage">
+                                {{ form_label(form_einsatz.lagebeimEintreffen, 'Lage beim Eintreffen') }}
+                                {{ form_errors(form_einsatz.lagebeimEintreffen) }}
+                                {{ form_widget(form_einsatz.lagebeimEintreffen,  {attr: {'placeholder': 'Genau Beschreibung der Lage beim Eintreffen der Einsatzkräfte...'} }) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="allgemein">
+                        <div class="form-row">
+                            <div class="col-12">
+                                {{ form_label(form_einsatz.beschreibung, 'Tätigkeitsbeschreibung') }}
+                                {{ form_errors(form_einsatz.beschreibung) }}
+                                {{ form_widget(form_einsatz.beschreibung,  {attr: {'placeholder': 'Genau Tätigkeitsbeschreibung...'} }) }}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-12">
+                                {{ form_label(form_einsatz.eingesetzteGeraete, 'Eingesätze Geräte') }}
+                                {{ form_errors(form_einsatz.eingesetzteGeraete) }}
+                                {{ form_widget(form_einsatz.eingesetzteGeraete,  {attr: {'placeholder': 'z.B. Hydraulisches Rettungsgerät, Pressluftatmer, sonstige ATS-Geräte, Stromerzeuger'} }) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="einsatz">
+                        <div id="brandeinsatz">
+                            <p class="legends">Details zum Brand:</p>
+
+                            <!--Brandaus-->
+                            <div class="form-row">
+                                <div class="col-12 col-sm-12 col-md-6">
+                                    {{ form_row(form_einsatz.brandausDate) }}
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-6">
+                                    {{ form_row(form_einsatz.brandausTime) }}
+                                </div>
+                            </div>
+
+                            <!--Brandwache Start-->
+                            <div class="form-row">
+                                <div class="col-12 col-sm-12 col-md-6">
+                                    {{ form_row(form_einsatz.brandwacheStartDate) }}
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-6">
+                                    {{ form_row(form_einsatz.brandwacheStartTime) }}
+                                </div>
+                            </div>
+
+                            <!--Brandwache Ende-->
+                            <div class="form-row">
+                                <div class="col-12 col-sm-12 col-md-6">
+                                    {{ form_row(form_einsatz.brandwacheEndeDate) }}
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-6">
+                                    {{ form_row(form_einsatz.brandwacheEndeTime) }}
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-12">
+                                    {{ form_row(form_einsatz.brandobjekte, {'attr': {'placeholder': 'z.B. PKW, Wohnung, Kamin, Gewerbebetrieb'} }) }}
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-12">
+                                    {{ form_row(form_einsatz.brandausmass) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="brandsicherheitswache">
+                            <p class="legends">Details zur Brandsicherheitswache:</p>
+                            <div class="form-row">
+                                <div class="col-12">
+                                    {{ form_row(form_einsatz.anlass) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="technischerEinsatz">
+                            <p class="legends">Details zum technischen Einsatz:</p>
+                            <div class="form-row">
+                                <div class="col-12">
+                                    {{ form_label(form_einsatz.unterunterkategorie, 'Technische Einsatzart') }}
+                                </div>
+                                <div class="col-12">
+                                    {{ form_errors(form_einsatz.unterunterkategorie) }}
+                                    {{ form_widget(form_einsatz.unterunterkategorie,  {attr: {id: 'technisch'} }) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Buttons -->
+                    <input type='button' name='previous' class='prev-button custom-button' value="Zurück">
+                    <input type='button' name='next' class='next-button custom-button' id="firstNextButton" value="Vorwärts"><br>
+                    <input type='button' name='restart' class='reset-button custom-button' value="Neustart">
+                    <input type='button' name='abbruch' class=' custom-button' onclick="window.location='{{ path('homepage') }}'" value="Abbrechen">
+                </fieldset>
+
+                <!-- Wetter und Straßenbeschaffenheit -->
+                <fieldset>
+                    <h2 class='title'>Zusätzliche Informationen</h2>
+                    <h3 class='sub-title'>Hier werden zusätzliche Informationen erfasst:</h3>
+
+                    <div class="einsatz">
+                        <div id="geschädigter">
+                            <p class="legends">Details zum Geschädigten:</p>
+                            <div class="form-row">
+                                <div class="col-12 col-sm-12 col-md-6">
+                                    {{ form_label(form_einsatz.geschaedigterName, 'Name des Geschädigten') }}
+                                    {{ form_errors(form_einsatz.geschaedigterName) }}
+                                    {{ form_widget(form_einsatz.geschaedigterName,  {'attr': {'placeholder': 'Max Mustermann'} }) }}
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-6">
+                                    {{ form_label(form_einsatz.geschaedigterAdresse, 'Adresse des Geschädigten') }}
+                                    {{ form_errors(form_einsatz.geschaedigterAdresse) }}
+                                    {{ form_widget(form_einsatz.geschaedigterAdresse,  {'attr': {'placeholder': 'Musterhausen 1, 1111 Musterort'} }) }}
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-12 col-sm-12 col-md-6">
+                                    {{ form_label(form_einsatz.geschaedigterTel, 'Telefonnummer des Geschädigten') }}
+                                    {{ form_errors(form_einsatz.geschaedigterTel) }}
+                                    {{ form_widget(form_einsatz.geschaedigterTel,  {'attr': {'placeholder': '1234/56789123'} }) }}
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-6">
+                                    {{ form_label(form_einsatz.geschaedigterKennzeichen, 'KFZ-Kennzeichen des Geschädigten') }}
+                                    {{ form_errors(form_einsatz.geschaedigterKennzeichen) }}
+                                    {{ form_widget(form_einsatz.geschaedigterKennzeichen,  {'attr': {'placeholder': 'AM-000-XY'} }) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-12">
+                                {{ form_label(form_einsatz.wetter, 'Wetter') }}
+                            </div>
+                            <div class="col-12">
+                                {{ form_errors(form_einsatz.wetter) }}
+                                {{ form_widget(form_einsatz.wetter) }}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-12">
+                                {{ form_label(form_einsatz.betriebsmittel, 'Verbrauchte Betriebsmittel') }}
+                                {{ form_errors(form_einsatz.betriebsmittel) }}
+                                {{ form_widget(form_einsatz.betriebsmittel,  {'attr': {'placeholder': 'z.B. Ölbindemittel, Petrotech, Pulver, Schaummittel'} }) }}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-12">
+                                {{ form_label(form_einsatz.anwesend, 'Anwesende') }}
+                            </div>
+                            <div class="col-12">
+                                {{ form_errors(form_einsatz.anwesend) }}
+                                {{ form_widget(form_einsatz.anwesend) }}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-12">
+                                {{ form_label(form_einsatz.notizen, 'Notizen') }}
+                                {{ form_errors(form_einsatz.notizen) }}
+                                {{ form_widget(form_einsatz.notizen,  {'attr': {'placeholder': 'z.B. verletzte Mitglieder, Schäden...'} }) }}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-12">
+                                {{ form_label(form_einsatz.bericht, 'Ausführlicher Bericht') }}
+                                {{ form_errors(form_einsatz.bericht) }}
+                                {{ form_widget(form_einsatz.bericht,  {'attr': {'placeholder': 'Genauer Bericht für die Homepage'} }) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="uebung">
+                        <div class="form-row">
+                            <div class="col-12">
+                                {{ form_label(form_einsatz.uebungsleiter, 'Übungsleiter') }}
+                                {{ form_errors(form_einsatz.uebungsleiter) }}
+                                {{ form_widget(form_einsatz.uebungsleiter,  {'attr': {'placeholder': 'Den Ausarbeiter der Übung hier eintragen..'} }) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <p>Hier kommt eventuell ein File-Upload hin!</p>
+                    <div class="form-row">
+                        <div class="col-12">
+                            <label>File Upload</label>
+                            <input type="file" value="Upload Files">
+                        </div>
+                    </div>
+
+                    <!-- Buttons -->
+                    <input type='button' name='previous' class='prev-button custom-button' value="Zurück">
+                    <input type='button' name='next' class='next-button custom-button' value="Vorwärts"><br>
+                    <input type='button' name='restart' class='reset-button custom-button' value="Neustart">
+                    <input type='button' name='abbruch' class=' custom-button' onclick="window.location='{{ path('homepage') }}'" value="Abbrechen">
+                </fieldset>
+
+                <!--Besatzung-->
+                <fieldset>
+                    <h2 class='title'>Besatzung</h2>
+                    <h3 class='sub-title'>Bitte die jeweilige Besatzung den Fahrzeugen zuweisen!</h3>
+                    <p>Hier kommen Fahrzeuge + DropDown Mechanismen</p>
+
+                    <!-- Buttons -->
+                    <p>Neustart/Abbruch funktioniert aktuell noch nicht</p>
+                    <input type='button' name='previous' class='prev-button custom-button' value="Zurück">
+                    <input type='button' name='next' class='next-button custom-button' value="Vorwärts"><br>
+                    <input type='button' name='restart' class='reset-button custom-button' value="Neustart">
+                    <input type='button' name='abbruch' class=' custom-button' onclick="window.location='{{ path('homepage') }}'" value="Abbrechen">
+                </fieldset>
+
+                <!-- Zusammenfassung -->
+                <fieldset>
+                    <h2 class='title'>Zusammenfassung</h2>
+                    <h3 class='sub-title'>Hier kommt noch die Zusammenfassung hin</h3>
+                    {{ form_einsatz.vars.value.unterkategorie }}
+                    {{ form_einsatz.vars.value.kategorie }}
+
+                    <!-- Buttons -->
+                    <input type='button' name='previous' class='prev-button custom-button' value="Zurück">
+                    {{ form_errors(form_einsatz) }}
+                    {{ form_end(form_einsatz) }}
+
+                    <br>
+                    <input type='button' name='restart' class='reset-button custom-button' value="Neustart">
+                    <input type='button' name='abbruch' class=' custom-button' onclick="window.location='{{ path('homepage') }}'" value="Abbrechen">
+                </fieldset>
+            </div> <!--div class container-->
+        </div><!-- /#page-content-wrapper -->
+    </div><!-- /#wrapper -->
+{% endblock %}
+
+{% block javascripts %}{% endblock %}
+
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+</body>
+</html>

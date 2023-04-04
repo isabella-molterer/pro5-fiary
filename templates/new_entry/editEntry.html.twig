@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Eintrag bearbeiten{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/css/editEntry.css') }}">
+{% endblock %}
+
+
+{% block body %}
+    <h1>{{ kategorie }} bearbeiten</h1>
+
+    {% if bForms %}
+        <label class="label">Besatzung</label>
+    {% endif %}
+
+    <div id="createEntry_besatzung">
+        <div class="row">
+            {% for member in bForms %}
+                {{ form_start(member, {attr: {class: 'col-sm-12 col-md-6'} }) }}
+                {{ form_widget(member) }}
+                {{ form_end(member) }}
+            {% endfor %}
+        </div>
+    </div>
+
+    <br>
+
+    {{ form(form, {'attr': {'novalidate':'novalidate', id: 'form-id'} }) }}
+{% endblock %}
+
+{% block javascripts %}<script src="{{ asset('assets/js/editEntry.js') }}"></script>{% endblock %}

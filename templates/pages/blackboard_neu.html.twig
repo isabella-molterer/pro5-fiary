@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Neuer Feed - Schwarzes Brett!{% endblock %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+    <!-- Style muss hier für Form Formatting Inkludiert werden -->
+    <style>
+        #form {
+            width: 80%;
+        }
+
+        #form_save {
+            background-color: var(--red);
+            color: #FFF;
+            width: 20vw;
+            padding: 10px 20px;
+            display: block;
+            border-radius: 10px;
+            border: none;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.5s ease-in-out;
+        }
+
+        #form_save:hover {
+            background: #c10612;
+            cursor: pointer;
+            color: #FFF;
+            text-decoration: none;
+        }
+
+        @media (min-width: 501px) {
+            #form_save {
+                font-size: 15px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            #form_save {
+                font-size: 8px;
+            }
+        }
+    </style>
+
+    {% set currentPath = path(app.request.attributes.get('_route'),
+    app.request.attributes.get('_route_params')) %}
+
+    <!-- Bezeichnung wird hier geändert je nachdem ob Edit oder Neuer Eintrag -->
+    {% if '/edit/' in currentPath %}
+        <h1>Feed Eintrag bearbeiten</h1>
+    {% else %}
+        <h1>Neuen Feed anlegen</h1>
+    {% endif %}
+
+    <!-- Form gesplitted um Formatierung zu ermöglichen -->
+    <div id="form">
+        {{ form_start(form) }}
+        {{ form_row(form.title) }}
+        {{ form_row(form.feed) }}
+        {{ form_widget(form.save, { 'label': 'Save Feed Entry' }) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

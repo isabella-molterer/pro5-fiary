@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Registered Users{% endblock %}
+
+{% block body %}
+
+    <style>
+        #format {
+            margin-top: 2%;
+            font-size: 1.2em;
+        }
+
+        #text {
+            margin-top: 0.5%;
+        }
+
+        @media (max-width: 599px) {
+            #userlist {
+                width: 100%;
+            }
+        }
+
+        @media (min-width: 600px) {
+            #userlist {
+                width: 80%;
+            }
+        }
+
+        #userlist {
+            color: var(--red) !important;
+            text-transform: capitalize;
+            text-decoration: none;
+        }
+
+        a {
+            color: var(--red);
+        }
+
+        a:hover {
+            text-decoration: none;
+            cursor: pointer;
+            color: var(--red);
+            font-weight: bold;
+        }
+
+        #registered {
+            margin-bottom: -0.8%;
+        }
+
+        .wrapper{
+            overflow:hidden;
+        }
+    </style>
+
+    <br>
+    <h1 id="registered">Registrierte Nutzer</h1><br>
+
+    <div class="formatting">
+        <ul class="list-group" id="userlist">
+            {% for user in users %}
+                <li class="d-flex list-group-item list-group-item-action" id="format">
+                    <a href="{{  path('user_edit', {id: user.id}) }}" id="text">
+                        {{  user.username }}<em> -   </em>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.002 512.002" width="15" height="15" fill="#000">
+                            <circle cx="364" cy="140.062" r="32"></circle>
+                            <path d="M506.478,165.937c-10.68-27.194-30.264-66.431-62.915-98.927c-32.535-32.384-71.356-51.408-98.194-61.666    c-29.464-11.261-62.945-4.163-85.295,18.082l-78.538,78.17c-23.281,23.171-29.991,58.825-16.698,88.72    c4.122,9.272,8.605,18.341,13.395,27.103L5.858,389.793C2.107,393.544,0,398.631,0,403.936v88c0,11.046,8.954,20,20,20h88    c11.046,0,20-8.954,20-20v-36l36-0.001c11.046,0,20-8.954,20-20v-35.999h36c11.046,0,20-8.954,20-20c0-11.046-8.954-20-20-20h-56    c-11.046,0-20,8.954-20,20v35.999l-36,0.001c-11.046,0-20,8.954-20,20v36H40V412.22l177.355-177.354    c6.516-6.516,7.737-16.639,2.958-24.517c-6.931-11.424-13.298-23.632-18.923-36.285c-6.599-14.841-3.237-32.57,8.366-44.119    l78.537-78.169c11.213-11.159,28.011-14.718,42.798-9.068c23.222,8.876,56.69,25.214,84.256,52.652    c27.735,27.604,44.62,61.567,53.9,85.197c5.791,14.748,2.272,31.503-8.965,42.687l-79.486,79.114    c-11.575,11.519-28.851,14.887-44.016,8.58c-12.507-5.202-24.62-11.382-36-18.367c-9.413-5.778-21.729-2.83-27.507,6.584    c-5.778,9.414-2.831,21.73,6.583,27.508c13.152,8.072,27.136,15.207,41.562,21.207c30.142,12.539,64.525,5.8,87.595-17.161    l79.486-79.113C511.044,229.157,518.101,195.534,506.478,165.937z"></path>
+                        </svg>
+
+                        {% if roleArray[user.id] == 'ROLE_ADMIN' %}
+                            Admin
+                        {% elseif roleArray[user.id] == 'ROLE_REGISTERED' %}
+                            Registered
+                        {% elseif roleArray[user.id] == 'ROLE_USER' %}
+                            User
+                        {% endif %}
+                    </a>
+
+                    {% if user != app.user %}
+                    <button type="button" class="btn smallredbutton ml-auto">
+                        <a href="{{ path('user_delete', {'id':user.id}) }}">
+                            <i><img src="{{ asset('assets/img/delete_big.svg') }}" alt="delete symbol"></i>
+                        </a>
+                    </button>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <br>
+    <a href="{{  path('user_registration') }}" id="adduser" class="bigredbutton">Nutzer anlegen</a><br>
+{% endblock %}

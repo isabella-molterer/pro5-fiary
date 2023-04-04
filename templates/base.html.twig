@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href= "{{ asset('assets/css/mystyle.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css">
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+
+<style>
+    .active {
+        box-shadow: inset 6px 0 0 #6d0b10, inset 6px 0 0 #222;
+        background: #444;
+    }
+
+    #username {
+        text-transform: uppercase;
+    }
+</style>
+
+<script>
+    function closeNav(){
+        var sidebar = document.getElementById("sidebar").classList.toggle("active");
+        document.getElementById("placeholder").classList.toggle("active");
+        document.getElementById("arrow").classList.toggle("active");
+        console.log("toggle");
+    }
+</script>
+
+<script>
+    $(window).on('load', function() {
+        $navitem =  $("li.nav-item");
+        $navitem.click(function(){
+            localStorage.setItem("clicked", $(this).attr("id"));
+        });
+        var active = localStorage.getItem("clicked") || "home";
+        $navitem.each(function(){
+            $("this").removeClass("active");
+        });
+        $("#"+active).addClass("active");
+    });
+</script>
+
+<div class='thetop' id="toppoint"></div>
+
+<div class="wrapper">
+    <div id="placeholder"></div>
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            {% if app.user.getUserInitials() == null %}
+
+            <img id="profile_pic" class="rounded-circle" src="{{ asset('assets/img/logo_circular.jpg') }}" alt="profile-picture">
+
+            {% else %}
+            <div class="dot">
+                <div id="user_profile" >
+                    <div id="user_initials">
+                        {{ app.user.getUserInitials() }}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <div id="username"> {{ app.user.username }}</div>
+        </div>
+
+        <ul class="list-unstyled components">
+            {% if is_granted('ROLE_ADMIN') %}
+            <li class="nav-item" id="user_entry">
+                <a class="nav-link" href="{{ path('dashboard') }}">
+                    <i><img src="{{  asset('assets/img/key.svg') }}" alt="user verwalten symbol"></i>
+                    <span class="link-content">User verwalten</span>
+                </a>
+            </li>
+            {% endif %}
+            <li class="nav-item" id="home_entry">
+                <a class="nav-link" href="{{ path('homepage') }}">
+                    <i><img src="{{  asset('assets/img/home_big.svg') }}" alt="home symbol"></i>
+                    <span  class="link-content">Home</span>
+                </a>
+            </li>
+            <li class="nav-item" id="statistik_entry">
+                <a class="nav-link" href="{{ path('statistics') }}">
+                    <i><img src="{{  asset('assets/img/stats.svg') }}" alt="statistik symbol"></i>
+                    <span class="link-content">Statistiken</span>
+                </a>
+            </li>
+            <li class="nav-item" id="entry_entry">
+                <a class="nav-link" href="{{ path('entries') }}">
+                    <i><img src="{{  asset('assets/img/entries.svg') }}" alt="entries symbol"></i>
+                    <span class="link-content">Einträge</span>
+                </a>
+            </li>
+            <li class="nav-item" id="info_entry">
+                <a class="nav-link" href="{{ path('infos') }}">
+                    <i><img src="{{  asset('assets/img/info.svg') }}" alt="entries symbol"></i>
+                    <span class="link-content">Info & Downloads</span>
+                </a>
+            </li>
+            <li class="nav-item" id="news_entry">
+                <a class="nav-link" href="{{ path('blackboard') }}">
+                    <i><img src="{{  asset('assets/img/bookmark.svg') }}" alt="entries symbol"></i>
+                    <span class="link-content">News</span>
+                </a>
+            </li>
+            <li class="nav-item" id="support_entry">
+                <a class="nav-link" href="{{ path('support') }}">
+                    <i><img src="{{  asset('assets/img/settings.svg') }}" alt="entries symbol"></i>
+                    <span class="link-content">Support</span>
+                </a>
+            </li>
+        </ul>
+
+        <button type="button" class="btn nav-btn logout">
+            {% if app.user %}
+                <a href="{{ logout_path('main') }}">
+                    <img  src=" {{ asset('assets/img/exit.svg') }}" alt="logout symbol">
+                    <span>Logout</span>
+                </a>
+            {% endif %}
+        </button>
+
+        <div class="menu-toggler container-fluid ">
+            <button type="button" id="sidebarCollapse" class="btn nav-btn" onclick="closeNav()" >
+                <img  id="arrow" src=" {{ asset('assets/img/close-menu.svg') }}" alt="logout symbol">
+            </button>
+        </div>
+    </nav>
+
+    <nav id="mobileNav" class="navbar fixed-top nav">
+        <div id="mobileBar" class="d-flex">
+            <div class="align-self-center mr-auto p-2 bd-highlight">
+                {% if app.user.getUserInitials() == null %}
+
+                    <a class="navbar-brand" href="{{ path('homepage') }}">
+                        <img id="profile_pic" class="rounded-circle" src="{{ asset('assets/img/logo_circular.jpg') }}" alt="profile-picture">
+                    </a>
+
+                {% else %}
+                <a class="navbar-brand" href="{{ path('homepage') }}">
+                    <div class="dot">
+                        <div id="user_profile" >
+                            <div id="user_initials">
+                                {{ app.user.getUserInitials() }}
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endif %}
+            </div>
+
+            <div id="username" class="align-self-center"> {{ app.user.username }}</div>
+
+            <div class="d-flex ml-auto logout p-2">
+                <div class="align-self-center">
+                    {% if app.user %}
+                        <a href="{{ logout_path('main') }}">
+                            <i><img  src=" {{ asset('assets/img/exit.svg') }}" alt="logout symbol"></i>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <button type="button" class="p-2 navbar-toggler collapsed" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <div class="my-toggler-icon" onclick="toggleIcon(this)">
+                    <div class="bar1"></div>
+                    <div class="bar2"></div>
+                    <div class="bar3"></div>
+                </div>
+            </button>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('dashboard') }}">User verwalten</a>
+                </li>
+                <li class="active nav-item">
+                    <a class="nav-link" href="{{ path('homepage') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('statistics') }}">Statistiken</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('entries') }}">Einträge</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('infos') }}">Info & Downloads</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('blackboard') }}">News</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('support') }}">Support</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="base-container container">
+        {% block body %}{% endblock %}
+        <!-- Back to Top Button -->
+        <a href="#" class="cd-top"></a>
+    </div>
+</div>
+
+{% block javascripts %}{% endblock %}
+
+<!-- Wichtig: -->
+<!-- Hier auskommentiert da Jquery nicht doppelt geladen werden darf - SLIM = verkleinerte Version nicht komplette Library, da gehen Funktionen wie z.B. animate nicht! -->
+<!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>-->
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+
+<script src=" {{ asset('assets/js/datatable.js') }}" ></script>
+
+<!-- Back to Top Button Javascript -->
+<script src=" {{ asset('assets/js/backtotop_button.js') }}" ></script>
+
+<!-- Statistik Javascript -->
+</html>

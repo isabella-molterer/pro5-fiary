@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+
+    <title>{% block title %}Neuen Eintrag erstellen{% endblock %}</title>
+
+    <!-- Including the Stylesheet -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('assets/css/multistep.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/mystyle.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="{{ asset('assets/js/multistep.js') }}"></script>
+
+    <style>
+        #fiaryimage {
+            width: 13%;
+            height: 13%;
+            margin: 2% auto -2% auto;
+        }
+
+        #fiaryimage img {
+            width: 100%;
+            height: 65%;
+        }
+    </style>
+</head>
+
+<body>
+{% block form %}
+    <div id="wrapper">
+        <div id="fiaryimage">
+            <a href="{{ path('homepage') }}">
+            <img src="{{  asset('assets/img/logo_white.png') }}" alt="logo homepage">
+            </a>
+        </div>
+
+        <nav class="navbarnew navbarnew-inverse navbarnew-fixed-top" id="sidebar-wrapper" role="navigation">
+            <ul class="navnew sidebar-navnew">
+                <li class="active">
+                    <table class="fixed_header table display" id="häuser_newentry" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Str.</th>
+                                <th>Nr.</th>
+                                <th>Bew.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for haus in haeuser %}
+                                <tr>
+                                    <td>{% if haus.strasse %}{{ haus.strasse }}{% else %}  {% endif %}</td>
+                                    <td> {% if haus.hausNr %}{{ haus.hausNr }}{% else %}  {% endif %}</td>
+                                    <td>{% if haus.bewohner %}{{ haus.bewohner }}{% else %}  {% endif %}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </li>
+            </ul>
+        </nav>
+        <!-- /#sidebar-wrapper -->
+        <div id="page-content-wrapper">
+            <button type="button" id="homebutton" class="hamburger open-navnew is-closed animated fadeInLeft">
+                <i><img src="{{ asset('assets/img/home_big.svg') }}" alt="home symbol"></i>
+            </button>
+
+            <div class="container">
+                {{ form_start(form, {'action': path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')), 'attr': {'class': 'flow-form', 'id':'form-id'}}) }}
+                <!-- This is the progressbar -->
+                <div>
+                    {% include '@CraueFormFlow/FormFlow/stepList.html.twig' %}
+                </div>
+
+                <fieldset>
+                    {{ form_start(form) }}
+                    {{ form_errors(form) }}
+
+                    {% if flow.getCurrentStepNumber() == 1 %}
+                        <div>
+                            <h2 class='title'>Kategorie Auswahl</h2>
+                            <h3 class='sub-title'>Wähle die Kategorie des Eintrags aus!</h3>
+                            <div>
+                                {{ form_row(form.kategorie) }}
+                                <p id="store"></p>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if flow.getCurrentStepNumber() == 2 %}
+                        <h2 class='title' id="title">Einsatzdetails</h2>
+                        <h3 class='sub-title' id="subtitle">Bitte gib hier die Details des Einsatzes bekannt!</h3>
+                        <p id="kategorie_einfügen">-- [Hier kommt die ausgewählte Kategorie] --</p><br>
+
+                        <div class="allgemein">
+                            {{ form_row(form.unterkategorie,  {attr: {id: 'underkategorie'} }) }}
+                        </div>
+
+                        <div class="allgemein">
+                            <div id="uhrzeit clear">
+                                <p class="legends">Zeitliche Details:</p>
+                                <div class="form-row einsatz">
+                                    <div class="col-12 col-sm-12 col-md-6">
+                                        {{ form_label(form.alarmdatum, 'Datum der Alarmierung') }}
+                                        {{ form_errors(form.alarmdatum) }}
+                                        {{ form_widget(form.alarmdatum) }}
+                                    </div>
+                                    <div class="col-12 col-sm-12 col-md-6">
+                                        {{ form_label(form.alarmzeit, 'Uhrzeit der Alarmierung') }}
+                                        {{ form_errors(form.alarmzeit) }}
+                                        {{ form_widget(form.alarmzeit) }}
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="col-12 col-sm-12 col-md-6">
+                                        <div class="einsatz"> {{ form_label(form.beginnDatum, 'Datum Einsatzbeginn') }}</div>
+                                        <div class="uebung">{{ form_label(form.beginnDatum, 'Datum Übungsbeginn') }}</div>
+
+                                        {{ form_errors(form.beginnDatum) }}
+                                        {{ form_widget(form.beginnDatum) }}
+                                    </div>
+                                    <div class="col-12 col-sm-12 col-md-6">
+                                        <div class="einsatz">{{ form_label(form.beginnZeit, 'Zeit Einsatzbeginn') }}</div>
+                                        <div class="uebung"> {{ form_label(form.beginnZeit, 'Zeit Übungsbeginn') }}</div>
+
+                                        {{ form_errors(form.beginnZeit) }}
+                                        {{ form_widget(form.beginnZeit) }}
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="col-12 col-sm-12 col-md-6">
+                                        <div class="einsatz"> {{ form_label(form.endeDatum, 'Datum Einsatzende') }}</div>
+                                        <div class="uebung"> {{ form_label(form.endeDatum, 'Datum Übungsende') }}</div>
+
+                                        {{ form_errors(form.endeDatum) }}
+                                        {{ form_widget(form.endeDatum) }}
+                                    </div>
+                                    <div class="col-12 col-sm-12 col-md-6">
+                                        <div class="einsatz"> {{ form_label(form.endeZeit, 'Zeit Einsatzende') }}</div>
+                                        <div class="uebung"> {{ form_label(form.endeZeit, 'Zeit Übungsende') }}</div>
+                                        {{ form_errors(form.endeZeit) }}
+                                        {{ form_widget(form.endeZeit) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="ort">
+                                <p class="legends">Örtliche Details:</p>
+
+                                <div class="form-row">
+                                    <div class="col-12 col-sm-12 col-md-6">
+                                        {{ form_label(form.strasse, 'Straße') }}
+                                        {{ form_errors(form.strasse) }}
+                                        {{ form_widget(form.strasse,  {attr: {'placeholder': 'Musterstraße'} }) }}
+                                    </div>
+                                    <div class="col-12 col-sm-12 col-md-6">
+                                        {{ form_label(form.hausnummer, 'Hausnummer') }}
+                                        {{ form_errors(form.hausnummer) }}
+                                        {{ form_widget(form.hausnummer,  {attr: {'placeholder': '1'} }) }}
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="col-12 col-sm-12 col-md-6">
+                                        {{ form_label(form.plz, 'PLZ') }}
+                                        {{ form_errors(form.plz) }}
+                                        {{ form_widget(form.plz,  {attr: {'placeholder': '3353'} }) }}
+                                    </div>
+                                    <div class="col-12 col-sm-12 col-md-6">
+                                        {{ form_label(form.ort, 'Ort') }}
+                                        {{ form_errors(form.ort) }}
+                                        {{ form_widget(form.ort,  {attr: {'placeholder': 'Musterstadt'} }) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="einsatz uebung">
+                            <div class="form-row">
+                                <div class="col-12" id="lage">
+                                    {{ form_label(form.lagebeimEintreffen, 'Lage beim Eintreffen') }}
+                                    {{ form_errors(form.lagebeimEintreffen) }}
+                                    {{ form_widget(form.lagebeimEintreffen,  {attr: {'placeholder': 'Genau Beschreibung der Lage beim Eintreffen der Einsatzkräfte...'} }) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="allgemein">
+                            <div class="form-row">
+                                <div class="col-12">
+                                    {{ form_label(form.beschreibung, 'Tätigkeitsbeschreibung') }}
+                                    {{ form_errors(form.beschreibung) }}
+                                    {{ form_widget(form.beschreibung,  {attr: {'placeholder': 'Genau Tätigkeitsbeschreibung...'} }) }}
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-12">
+                                    {{ form_label(form.eingesetzteGeraete, 'Eingesetze Geräte') }}
+                                    {{ form_errors(form.eingesetzteGeraete) }}
+                                    {{ form_widget(form.eingesetzteGeraete,  {attr: {'placeholder': 'z.B. Hydraulisches Rettungsgerät, Pressluftatmer, sonstige ATS-Geräte, Stromerzeuger'} }) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="einsatz">
+                            <div id="brandeinsatz">
+                                <p class="legends">Details zum Brand:</p>
+                                <!--Brandaus-->
+                                <div class="form-row">
+                                    <div class="col-12 col-sm-12 col-md-6">
+                                        {{ form_row(form.brandausDate) }}
+                                    </div>
+
+                                    <div class="col-12 col-sm-12 col-md-6">
+                                        {{ form_row(form.brandausTime) }}
+                                    </div>
+                                </div>
+
+                                <!--Brandwache Start-->
+                                <div class="form-row">
+                                    <div class="col-12 col-sm-12 col-md-6">
+                                        {{ form_row(form.brandwacheStartDate) }}
+                                    </div>
+
+                                    <div class="col-12 col-sm-12 col-md-6">
+                                        {{ form_row(form.brandwacheStartTime) }}
+                                    </div>
+                                </div>
+
+                                <!--Brandwache Ende-->
+                                <div class="form-row">
+                                    <div class="col-12 col-sm-12 col-md-6">
+                                        {{ form_row(form.brandwacheEndeDate) }}
+                                    </div>
+
+                                    <div class="col-12 col-sm-12 col-md-6">
+                                        {{ form_row(form.brandwacheEndeTime) }}
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="col-12">
+                                        {{ form_row(form.brandobjekte, {'attr': {'placeholder': 'z.B. PKW, Wohnung, Kamin, Gewerbebetrieb'} }) }}
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="col-12">
+                                        {{ form_row(form.brandausmass) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="brandsicherheitswache">
+                                <p class="legends">Details zur Brandsicherheitswache:</p>
+                                <div class="form-row">
+                                    <div class="col-12">
+                                        {{ form_row(form.anlass) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="technischerEinsatz">
+                                <p class="legends">Details zum technischen Einsatz:</p>
+                                <div class="form-row">
+                                    <div class="col-12">
+                                        {{ form_label(form.unterunterkategorie, 'Technische Einsatzart') }}
+                                    </div>
+                                    <div class="col-12">
+                                        {{ form_errors(form.unterunterkategorie) }}
+                                        {{ form_widget(form.unterunterkategorie,  {attr: {id: 'technisch'} }) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if flow.getCurrentStepNumber() == 3 %}
+                        <h2 class='title'>Zusätzliche Informationen</h2>
+                        <h3 class='sub-title'>Hier werden zusätzliche Informationen erfasst:</h3>
+
+                        <div class="einsatz">
+                            <div id="geschädigter">
+                                <p class="legends">Details zum Geschädigten:</p>
+                                <div class="form-row">
+                                    <div class="col-12 col-sm-12 col-md-6">
+                                        {{ form_label(form.geschaedigterName, 'Name des Geschädigten') }}
+                                        {{ form_errors(form.geschaedigterName) }}
+                                        {{ form_widget(form.geschaedigterName,  {'attr': {'placeholder': 'Max Mustermann'} }) }}
+
+                                    </div>
+                                    <div class="col-12 col-sm-12 col-md-6">
+                                        {{ form_label(form.geschaedigterAdresse, 'Adresse des Geschädigten') }}
+                                        {{ form_errors(form.geschaedigterAdresse) }}
+                                        {{ form_widget(form.geschaedigterAdresse,  {'attr': {'placeholder': 'Musterhausen 1, 1111 Musterort'} }) }}
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-12 col-sm-12 col-md-6">
+                                        {{ form_label(form.geschaedigterTel, 'Telefonnummer des Geschädigten') }}
+                                        {{ form_errors(form.geschaedigterTel) }}
+                                        {{ form_widget(form.geschaedigterTel,  {'attr': {'placeholder': '1234/56789123'} }) }}
+
+                                    </div>
+                                    <div class="col-12 col-sm-12 col-md-6">
+                                        {{ form_label(form.geschaedigterKennzeichen, 'KFZ-Kennzeichen des Geschädigten') }}
+                                        {{ form_errors(form.geschaedigterKennzeichen) }}
+                                        {{ form_widget(form.geschaedigterKennzeichen,  {'attr': {'placeholder': 'AM-000-XY'} }) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--Wetter-->
+                            <div class="form-row">
+                                <div class="col-12">
+                                    {{ form_label(form.wetter, 'Wetter') }}
+                                </div>
+                                <div class="col-12">
+                                    {{ form_errors(form.wetter) }}
+
+                                    {{ form_widget(form.wetter) }}
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-12">
+                                    {{ form_label(form.betriebsmittel, 'Verbrauchte Betriebsmittel') }}
+                                    {{ form_errors(form.betriebsmittel) }}
+                                    {{ form_widget(form.betriebsmittel,  {'attr': {'placeholder': 'z.B. Ölbindemittel, Petrotech, Pulver, Schaummittel'} }) }}
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-12">
+                                    {{ form_label(form.anwesend, 'Anwesende') }}
+                                </div>
+                                <div class="col-12">
+                                    {{ form_errors(form.anwesend) }}
+                                    {{ form_widget(form.anwesend) }}
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-12">
+                                    {{ form_label(form.notizen, 'Notizen') }}
+                                    {{ form_errors(form.notizen) }}
+                                    {{ form_widget(form.notizen,  {'attr': {'placeholder': 'z.B. verletzte Mitglieder, Schäden...'} }) }}
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-12">
+                                    {{ form_label(form.bericht, 'Ausführlicher Bericht') }}
+                                    {{ form_errors(form.bericht) }}
+                                    {{ form_widget(form.bericht,  {'attr': {'placeholder': 'Genauer Bericht für die Homepage'} }) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="uebung">
+                            <div class="form-row">
+                                <div class="col-12">
+                                    {{ form_label(form.uebungsleiter, 'Übungsleiter') }}
+                                    {{ form_errors(form.uebungsleiter) }}
+                                    {{ form_widget(form.uebungsleiter,  {'attr': {'placeholder': 'Den Ausarbeiter der Übung hier eintragen..'} }) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-12">
+                                {{ form_row(form.photo) }}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if flow.getCurrentStepNumber() == 5 %}
+                        <h4>{{ 'Zusammenfassung' }}</h4>
+                        <p>-- {{ metadata | date('d.m.Y H:m') }} Uhr --</p>
+                        <br/><br/>
+
+                        <div>
+                            <div class="form-row">
+                                <div class="col-12 col-sm-12 col-md-4">
+                                    {% if formData.kategorie is not empty %}
+                                        <b>{{ 'Kategorie:' | trans }}</b>
+                                        <p>{{ formData.kategorie }}</p>
+                                    {% endif %}
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-4">
+                                    {% if formData.unterkategorie is not empty %}
+                                        <b>{{ 'Unterkategorie:' | trans }}</b>
+                                        <p>{{ unterKategorie[formData.unterkategorie] }}</p>
+                                    {% endif %}
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-4">
+                                    {% if formData.unterunterkategorie is not empty %}
+                                        <b>{{ 'Details zur Kategoire:' | trans }}</b>
+                                        <p>{{ unterunterKategorie[formData.unterunterkategorie] }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-row">
+                                <div class="col-12 col-sm-12 col-md-12">
+                                    {% if formData.beschreibung is not empty %}
+                                        <b>{{ 'Beschreibung:' | trans }}</b>
+                                        <p>{{ formData.beschreibung }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-12 col-sm-12 col-md-12">
+                                    {% if formData.lagebeimEintreffen is not empty %}
+                                        <b>{{ 'Lage beim Eintreffen:' | trans }}</b>
+                                        <p>{{ formData.lagebeimEintreffen }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-12 col-sm-12 col-md-12">
+                                    {% if formData.eingesetzteGeraete is not empty %}
+                                        <b>{{ 'Eingesetzte Geräte:' | trans }}</b>
+                                        <p>{{ formData.eingesetzteGeraete }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="legends">Zeitliche Details:</p>
+                            <div class="form-row">
+                                <div class="col-12 col-sm-12 col-md-4">
+                                    {% if formData.alarmdatum is not empty %}
+                                        <b>{{ 'Alarmierung:' | trans }}</b>
+                                        <p>{{ formData.alarmdatum |date('d.m.Y') }}</p>
+                                        {% if formData.alarmZeit is not empty %}
+                                            <p>{{ formData.alarmZeit | date('H:m') }} Uhr</p>
+                                        {% endif %}
+                                    </div>
+                                    {% endif %}
+
+
+                                {% if formData.beginnDatum is not empty %}
+                                    <div class="col-12 col-sm-12 col-md-4">
+                                        <b>{{ 'Ausrückung:' | trans }}</b>
+                                        <p>{{ formData.beginnDatum | date('d.m.Y') }}</p>
+                                        {% if formData.beginnZeit is not empty %}
+                                            <p>{{ formData.beginnZeit | date('H:m') }} Uhr</p>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+
+                                {% if formData.endeDatum is not empty %}
+                                    <div class="col-12 col-sm-12 col-md-4">
+                                        <b>{{ 'Einrückung:' | trans }}</b>
+                                        <p>{{ formData.endeDatum| date('d.m.Y') }}</p>
+                                        {% if formData.endeZeit is not empty %}
+                                            <p>{{ formData.endeZeit | date('H:m') }} Uhr</p>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div>
+                            <p class="legends">Örtliche Details:</p>
+                            <div class="form-row">
+                                <div class="col-12 col-sm-12 col-md-6">
+                                    {% if formData.ort is not empty %}
+                                        <b>{{ 'Ort' | trans }}</b>
+                                        <p>{{ formData.plz }} {{ formData.ort }}</p>
+                                    {% endif %}
+                                </div>
+
+                                <div class="col-12 col-sm-12 col-md-6">
+                                    {% if formData.strasse is not empty %}
+                                        <b>{{ 'Strasse' | trans }}</b>
+                                        <p>{{ formData.strasse }} {{ formData.hausnummer }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        {% if formData.unterkategorie == 0 %}
+                            <div>
+                                <p class="legends">Details zum Brand:</p>
+
+                                <div class="form-row">
+                                    <div class="col-12 col-sm-12 col-md-12">
+                                        {% if formData.brandausDate is not empty %}
+                                            <b>{{ 'Brandaus:' | trans }}</b>
+                                            <p>{{ formData.brandausDate | date('d.m.Y') }}
+                                                {% if formData.brandausTime is not empty %}
+                                                    {{ formData.brandausTime | date('H:m') }}
+                                                {% endif %} Uhr
+                                            </p>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="col-12 col-sm-12 col-md-12">
+                                        {% if formData.brandwacheStartDate is not empty %}
+                                            <b>{{ 'Brandwache-Beginn:' | trans }}</b>
+                                            <p>{{ formData.brandwacheStartDate | date('d.m.Y') }}
+                                                {% if formData.brandwacheStartTime is not empty %}
+                                                    {{ formData.brandwacheStartTime | date('H:m') }}
+                                                {% endif %} Uhr
+                                            </p>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="col-12 col-sm-12 col-md-12">
+                                        {% if formData.brandwacheEndeDate is not empty %}
+                                            <b>{{ 'Brandwache-Ende:' | trans }}</b>
+                                            <p>{{ formData.brandwacheEndeDate | date('d.m.Y') }}
+                                                {% if formData.brandwacheEndeTime is not empty %}
+                                                    {{ formData.brandwacheEndeTime | date('H:m') }}
+                                                {% endif %} Uhr
+                                            </p>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="col-12 col-sm-12 col-md-6">
+                                        {% if formData.brandausmass is not empty %}
+                                            <b>{{ 'Brandausmaß:' | trans }}</b>
+                                            <p>{{ brandAusmass[formData.brandausmass] }}</p>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="col-12 col-sm-12 col-md-6">
+                                        {% if formData.brandobjekte is not empty %}
+                                            <b>{{ 'Brandobjekte:' | trans }}</b>
+                                            <p>{{ formData.brandobjekte }}</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        {% if formData.unterkategorie == 1 %}
+                            <div>
+                                <div class="form-row">
+                                    <div class="col-12 col-sm-12 col-md-12">
+                                        {% if formData.anlass is not empty %}
+                                            <b>{{ 'Anlass:' | trans }}</b>
+                                            <p>{{ formData.anlass }}</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        <!--Geschädigter-->
+                        <div class="form-row">
+                            <div class="col-12 col-sm-12 col-md-12">
+                                {% if formData.geschaedigterName is not empty %}
+                                    <b>{{ 'Name des Geschädigten:' | trans }}</b>
+                                    <p>{{ formData.geschaedigterName }}</p>
+                                {% endif %}
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-12">
+                                {% if formData.geschaedigterAdresse is not empty %}
+                                    <b>{{ 'Adresse des Geschädigten:' | trans }}</b>
+                                    <p>{{ formData.geschaedigterAdresse }}</p>
+                                {% endif %}
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-12">
+                                {% if formData.geschaedigterTel is not empty %}
+                                    <b>{{ 'Tel-Nummer des Geschädigten:' | trans }}</b>
+                                    <p>{{ formData.geschaedigterTel }}</p>
+                                {% endif %}
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-12">
+                                {% if formData.geschaedigterKennzeichen is not empty %}
+                                    <b>{{ 'Kennzeichen des Geschädigten:' | trans }}</b>
+                                    <p>{{ formData.geschaedigterKennzeichen }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-12 col-sm-12 col-md-12">
+                                {% if formData.anwesend is not empty %}
+                                    <b>{{ 'Anwesende: ' | trans }}</b>
+                                    <p>
+                                        {% for an in formData.anwesend %}
+                                            {{ an }},
+                                        {% endfor %}
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            {% if formData.wetter is not empty %}
+                                <div class="col-12 col-sm-12 col-md-12">
+                                    <b>Wetter:</b>
+                                    <ul style="list-style-type: none;">
+                                        {% for we in formData.wetter %}
+                                            <li>{{ weTTer[we] }}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-12 col-sm-12 col-md-12">
+                                {% if formData.betriebsmittel is not empty %}
+                                    <b>{{ 'Betriebsmittel:' | trans }}</b>
+                                    <p>{{ formData.betriebsmittel }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-12 col-sm-12 col-md-12">
+                                {% if formData.uebungsleiter is not empty %}
+                                    <b>{{ 'Übungsleiter:' | trans }}</b>
+                                    <p>{{ formData.uebungsleiter }}</p>
+
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-12 col-sm-12 col-md-12">
+                                {% if formData.bericht is not empty %}
+                                    <b>{{ 'Bericht:' | trans }}</b>
+                                    <p>{{ formData.bericht }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-12 col-sm-12 col-md-12">
+                                {% if formData.notizen is not empty %}
+                                    <b>{{ 'Notizen:' | trans }}</b>
+                                    <p>{{ formData.notizen }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-12 col-sm-12 col-md-12">
+                                {% if formData.besatzung is not empty %}
+                                    <b>{{ 'Besatzung:' | trans }}</b>
+                                    {% for we in formData.besatzung %}
+                                        {% if we.idfahrzeugFahrzeug is not empty %}
+                                            <p>{{ we.idfahrzeugFahrzeug }}: {{  we.idmitgliederMitglieder}} - {{  we.rolle}} </p>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {{ form_rest(form) }}
+                </fieldset>
+
+                {% include '@CraueFormFlow/FormFlow/buttons.html.twig' with {
+                craue_formflow_button_class_back: 'btn prev-button custom-button',
+                craue_formflow_button_class_reset: 'btn btn-warning custom-button',
+                craue_formflow_button_class_finish: 'btn btn-warning custom-button',
+                craue_formflow_button_class_next: 'btn btn-warning custom-button',
+                craue_formflow_button_label_next: 'Vorwärts',
+                craue_formflow_button_label_finish: 'Bestätigen',
+                craue_formflow_button_label_reset: 'Neustart',
+                craue_formflow_button_label_back: 'Zurück'
+                } %}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}{% endblock %}
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+
+</body>
+</html>

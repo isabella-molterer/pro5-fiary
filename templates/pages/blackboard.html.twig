@@ -1,0 +1,189 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Schwarzes Brett{% endblock %}
+
+{% block body %}
+
+    <!-- Style Anpassung bitte wieder hier lassen damit es gut greift! -->
+    <style>
+        #newsheading {
+            font-size: 3em;
+            margin-bottom: 0;
+        }
+
+        .imagebutton {
+            background-color: var(--red);
+            color: #FFF;
+            width: 8vw;
+            padding: 10px 20px;
+            display: block;
+            border-radius: 10px;
+            border: none;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.5s ease-in-out;
+            margin-right: 3%;
+            margin-left: 3%;
+        }
+
+        .imagebutton:hover {
+            background: #c10612;
+            cursor: pointer;
+            color: #FFF;
+            text-decoration: none;
+        }
+        @media (max-width: 680px) {
+            .imagebutton {
+                width: 85%;
+                margin-top: 3%;
+                margin-bottom: auto;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+        #test {
+            margin-left: -2%;
+        }
+
+        #button2 {
+            margin-left: 2%;
+        }
+
+        .bigredbutton2 {
+            background-color: var(--red);
+            color: #FFF;
+            width: 23vw;
+            padding: 10px 20px;
+            display: block;
+            border-radius: 10px;
+            border: none;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.5s ease-in-out;
+        }
+
+        .bigredbutton2:hover {
+            background: #c10612;
+            cursor: pointer;
+            color: #FFF;
+            text-decoration: none;
+        }
+
+        @media (min-width: 501px) {
+            .bigredbutton2 {
+                font-size: 15px;
+            }
+        }
+
+        @media (max-width: 680px) {
+            .bigredbutton2 {
+                font-size: 12px;
+                width: 85%;
+                margin-top: 3%;
+                margin-bottom: auto;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+        .firstelement {
+            width: 94%;
+            margin-left: 3.5%;
+        }
+
+        #zindex {
+            z-index: 0;
+        }
+
+        #firstheading {
+            margin: auto;
+            margin-bottom: 3%;
+            color: var(--red);
+            font-weight: bold;
+        }
+
+        #feed-wrapper {
+            margin: 0;
+        }
+    </style>
+
+    <h1 id="newsheading">News</h1><br><hr><br>
+
+    <!--Permission Überprüfung -->
+    {% if is_granted('ROLE_REGISTERED') %}
+        <a href="{{ path('blackboard_neu') }}" class="bigredbutton" id="button">Neuen Feed anlegen</a><br><hr><br>
+    {% endif %}
+
+    <!-- CARDS STARTING -->
+    <section>
+        <div class="row" id="feed-wrapper">
+            {%  for entry in feeds %}
+                {% if loop.last %}
+                    <div class="firstelement">
+                        <div class="row">
+                            <div class="blog-card" id="test">
+                                <div class="description">
+                                    <h2>{{ entry.title }}</h2>
+                                    <h3>Beitrag erstellt am: {{ entry.date }}</h3>
+                                    <p>{{ entry.feed }}</p><br>
+                                    <div id="buttons">
+                                        {% if is_granted('ROLE_REGISTERED') %}
+                                            <div class="row">
+                                                <div class="imagebutton">
+                                                    <a href="{{ path('feed_edit', {'id':entry.idfeed}) }}">
+                                                        <img border="0" alt="EditIcon" src="{{ asset('assets/img/entries.svg') }}" width="20" height="20">
+                                                    </a>
+                                                </div>
+                                                <div class="imagebutton">
+                                                    <a href="{{ path('feed_delete', {'id':entry.idfeed}) }}">
+                                                        <img border="0" alt="DeleteIcon" src="{{ asset('assets/img/delete_big.svg') }}" width="20" height="15">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr><br>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <div class="row" id="feed-wrapper">
+            {%  for entry in feeds %}
+                {% if not loop.last %}
+                    <div class="col-sm-6" id="zindex">
+                        <div class="blog-card" id="test">
+                            <div class="description">
+                                <h2>{{ entry.title }}</h2>
+                                <h3>Beitrag erstellt am: {{ entry.date }}</h3>
+                                <p>{{ entry.feed }}</p><br>
+                                <div id="buttons">
+                                    {% if is_granted('ROLE_REGISTERED') %}
+                                        <div class="row">
+                                            <div class="imagebutton">
+                                                <a href="{{ path('feed_edit', {'id':entry.idfeed}) }}">
+                                                    <img border="0" alt="EditIcon" src="{{ asset('assets/img/entries.svg') }}" width="20" height="20">
+                                                </a>
+                                            </div>
+                                            <div class="imagebutton">
+                                                <a href="{{ path('feed_delete', {'id':entry.idfeed}) }}">
+                                                    <img border="0" alt="DeleteIcon" src="{{ asset('assets/img/delete_big.svg') }}" width="20" height="15">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}
+

@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Einträge{% endblock %}
+
+{% block body %}
+    <style>
+        .table-responsive .dt-buttons .dt-button{
+            background-color: var(--red);
+            background-image: none;
+            padding: 10px 20px;
+            color: #fff;
+            border-radius: 10px;
+            transition: all 0.5s ease-in-out;
+        }
+
+        .table-responsive  thead {
+            background-color: rgba(0, 0, 0, 0.85);
+            color: #fff;
+        }
+
+        .table-responsive {
+            display: block;
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            -ms-overflow-style: -ms-autohiding-scrollbar;
+        }
+
+        .table-responsive .table tr td:nth-child(3) {
+            width: 250px;
+        }
+    </style>
+
+    <h1>Einträge</h1>
+
+    <hr class="firstline">
+
+    <div class="row">
+        <div class="col-md-12">
+            <a href="{{ path('newcraueentry') }}" id="eintraghinzu" class="bigredbutton">Eintrag hinzufügen</a><br>
+
+            <div class="table-responsive">
+                <table class="fixed_header table display " id="overview" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Datum</th>
+                            <th>Kategorie</th>
+                            <th>Titel/Beschreibung</th>
+                            <th>Straße/Hausnummer</th>
+                            <th>Bearbeiten</th>
+                            <th>Löschen</th>
+                            <th>Speichern</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for eintrag in eintraege %}
+                            <tr>
+                                <td>{% if eintrag.beginnDatum %}{{ eintrag.beginnDatum|date('d.m.Y') }}{% else %}  {% endif %}</td>
+                                <td> {% if eintrag.kategorie %}{{ eintrag.kategorie }}{% else %}  {% endif %}</td>
+                                <td>{% if eintrag.beschreibung %}{{ eintrag.beschreibung }}{% else %}  {% endif %}</td>
+                                <td>{% if eintrag.strasse %}{{ eintrag.strasse }}{% else %}  {% endif %} {% if eintrag.hausnummer %}{{ eintrag.hausnummer }}{% else %}  {% endif %}</td>
+
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <td>
+                                        <button type="button"  class="btn smallredbutton">
+                                            <a href="{{ path('entries_edit', {'id':eintrag.idlogbuch} ) }}">
+                                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#fff" width="20" height="20"
+                                                    viewBox="0 0 129 129" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 129 129">
+                                                    <path d="m119.2,114.3h-109.4c-2.3,0-4.1,1.9-4.1,4.1s1.9,4.1 4.1,4.1h109.5c2.3,0 4.1-1.9 4.1-4.1s-1.9-4.1-4.2-4.1z"></path>
+                                                    <path d="m5.7,78l-.1,19.5c0,1.1 0.4,2.2 1.2,3 0.8,0.8 1.8,1.2 2.9,1.2l19.4-.1c1.1,0 2.1-0.4 2.9-1.2l67-67c1.6-1.6 1.6-4.2 0-5.9l-19.2-19.4c-1.6-1.6-4.2-1.6-5.9-1.77636e-15l-13.4,13.5-53.6,53.5c-0.7,0.8-1.2,1.8-1.2,2.9zm71.2-61.1l13.5,13.5-7.6,7.6-13.5-13.5 7.6-7.6zm-62.9,62.9l49.4-49.4 13.5,13.5-49.4,49.3-13.6,.1 .1-13.5z"></path>
+                                                </svg>
+                                            </a>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button type="button"  class="btn smallredbutton">
+                                            <a href="{{ path('entries_delete', {'id':eintrag.idlogbuch} ) }}">
+                                                <i><img src="{{  asset('assets/img/delete_big.svg') }}" alt="delete symbol"></i>
+                                            </a>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <a href="{{ path('entries_save', {'id':eintrag.idlogbuch} ) }}">
+                                            <i><img src="{{  asset('assets/img/pdf.svg') }}" alt="pdf symbol"></i>
+                                        </a>
+                                    </td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

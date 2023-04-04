@@ -1,0 +1,241 @@
+/*datepicker*/
+
+form {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
+
+form div:nth-child(4), form div:nth-child(5){
+    flex: 100%;
+}
+
+form div, label {
+    padding-right: 20px;
+    padding-bottom: 5px;
+    /*flex: 50%;*/
+}
+
+form button {
+    width: 300px;
+}
+
+.datepicker, .form:last-child {
+    display: inline-block;
+}
+
+.datepicker select {
+    padding: 10px 10px;
+}
+
+form > div > label {
+    font-weight: bold;
+}
+
+.error {
+    color: var(--red);
+    font-style: italic;
+}
+
+
+#accordion {
+    width: 100%;
+}
+
+#accordion .panel {
+    border-radius: 0;
+    border: 0;
+    margin-top: 0;
+}
+#accordion .panel-title>a, #accordion .panel-body ul li a{
+    color: #000;
+    padding: 10px 15px;
+    border-bottom: 1px solid var(--red);
+    text-decoration: none;
+}
+#accordion .panel-heading a.collapsed:hover,
+#accordion .panel-heading a.collapsed:focus {
+    background-color: var(--red);
+    color: white;
+    fill: white;
+    transition: all 0.2s ease-in;
+}
+#accordion .panel-heading a.collapsed:hover::before,
+#accordion .panel-heading a.collapsed:focus::before {
+    color: white;
+}
+#accordion .panel-heading {
+    padding: 0;
+    border-radius: 0;
+}
+#accordion .panel-heading a:not(.collapsed) {
+    color: white;
+    background-color: var(--red);
+    transition: all 0.2s ease-in;
+}
+
+/* Add Indicator fontawesome icon to the left */
+#accordion .panel-heading .accordion-toggle svg {
+    transform: rotate(90deg);
+    transition: all 0.2s ease-in;
+}
+
+#accordion .panel-heading .accordion-toggle.collapsed svg {
+    transform: rotate(0deg);
+    transition: all 0.2s ease-in;
+}
+/*
+#accordion .panel-body .panel-content {
+    padding: 20px;
+}
+*/
+
+#accordion .panel-body .panel-content ul li {
+    list-style: none;
+    padding-bottom: 5px;
+}
+
+#accordion .panel-body .panel-content ul li a {
+    border-bottom: none;
+}
+
+#accordion .panel-body .panel-content ul li a span {
+    position: relative;
+    padding-bottom: 5px;
+}
+
+#accordion .panel-body .panel-content ul li a span:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    border-bottom: 2px solid var(--red);
+    transition: 0.4s;
+}
+
+#accordion .panel-body .panel-content ul li a span:hover:after {
+    width: 100%;
+}
+
+.form-group .col-form-label {
+    font-weight: bold;
+}
+
+.form-group .btn {
+    color: #fff;
+    background-color: var(--grey);
+}
+
+#example_previous{
+    display:initial!important;
+}
+
+#accordion #adduser {
+    width: 200px;
+    padding: 10px 20px;
+}
+
+/* MITGLIEDER */
+.biggreybutton a, .biggreybutton:hover {
+    color: #FFF;
+    text-decoration: none;
+}
+
+.biggreybutton {
+    background-color: var(--grey);
+    color: #FFF;
+    display: block;
+    border-radius: 10px;
+    border: none;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.5s ease-in-out;
+    margin-top: 10px;
+}
+
+.biggreybutton:hover {
+    background: rgba(0, 0, 0, 0.9);
+    cursor: pointer;
+}
+
+/* Tabelle*/
+.table-responsive  thead {
+    background-color: rgba(0, 0, 0, 0.85);
+    color: #fff;
+}
+
+#users .table-responsive tbody tr:nth-child(2n+1), #users .table-responsive tbody tr:nth-child(2n+1)>.sorting_1  {
+
+}
+
+#users .table-responsive tbody tr td:nth-child(5n){
+    width: 100px;
+}
+
+#users .table-responsive tbody tr>.sorting_1 {
+
+}
+
+#users .table-responsive .dataTables_paginate.paging_simple_numbers a {
+    border: none;
+}
+
+#users .table-responsive .dt-buttons .dt-button {
+    background-color: var(--red);
+    background-image: none;
+    padding: 10px 20px;
+    color: #fff;
+    border-radius: 10px;
+    transition: all 0.5s ease-in-out;
+}
+
+#users .table-responsive .dt-buttons .dt-button:hover {
+    background: #c10612;
+    cursor: pointer;
+}
+
+tr td {
+    transition: all 0.3s ease-in-out;
+}
+
+tr:hover td {
+    background-color: rgba(255, 4, 3, 0.1);
+}
+
+#accordion .smallredbutton a {
+    padding: 0;
+}
+
+#example_wrapper {
+    margin: 4vh 0;
+}
+
+#accordion td a {
+    border-bottom: none;
+}
+
+/* Hier müssen die Werte dann noch an das Burgermenü angepasst werden*/
+@media (min-width: 501px) {
+    #accordion #adduser, .biggreybutton {
+        font-size: 15px;
+    }
+}
+
+
+@media (max-width: 720px) {
+
+    form div:nth-child(4), form div:nth-child(5){
+        width: 100% !important;
+    }
+
+    #accordion #adduser, .biggreybutton {
+        font-size: 12px;
+        width: 180px;
+        margin: 20px auto;
+    }
+}
+
+

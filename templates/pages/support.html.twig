@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Support{% endblock %}
+
+{% block body %}
+    <!-- Funktioniert nur hier eingebunden aber nicht im mystyle css?
+    Drum bitte hier lassen und nicht rauslöschen -->
+
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .redbutton {
+            background-color: #8d0403;
+            color: #FFF;
+            width: 100%;
+            padding: 10px 20px;
+            display: block;
+            height: 39px;
+            border-radius: 20px;
+            margin-top: 30px;
+            transition: all 0.5s ease-in-out;
+            border: none;
+            text-transform: uppercase;
+        }
+
+        .redbutton:hover {
+            background: #c10612;
+            cursor: pointer;
+        }
+
+        .form-control:focus {
+            border-color: #8d0403;
+            box-shadow: none;
+        }
+
+        .support {
+            width: 75%;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        .form-label {
+            font-size: 12px;
+            color: var(--red);
+            margin: 0;
+            display: block;
+            opacity: 1;
+            -webkit-transition: .333s ease top, .333s ease opacity;
+            transition: .333s ease top, .333s ease opacity;
+        }
+
+        .form-control {
+            border-radius: 0;
+            border-color: #ccc;
+            border-width: 0 0 2px 0;
+            border-style: none none solid none;
+            box-shadow: none;
+        }
+    </style>
+
+    <br>
+    <h1>Support</h1>
+
+    <p>Es gibt ein Problem? Teile es hier mit!</p><br>
+
+    <!-- Validation ob es leer ist wird hier bereits von Boostrap via Required übernommen jedoch
+    fehlt hier noch die Validation EMail Phone etc. ob das auch Valid ist  -->
+
+    <div class="support">
+        <form id="contact-form" class="form" action="#" method="POST" role="form">
+            <div class="form-group">
+                <label class="form-label" for="name">Name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Dein Name" tabindex="1" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Deine Email" tabindex="2" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="subject">Thema</label>
+                <input type="text" class="form-control" id="subject" name="subject" placeholder="Das Thema" tabindex="3">
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="message">Deine Nachricht:</label>
+                <textarea rows="5" cols="50" name="message" class="form-control" id="message" placeholder="Beschreibe dein Problem!" tabindex="4" required></textarea>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="redbutton">Abschicken</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,390 @@
+/* Color Constants */
+:root {
+    --grey: #505050;
+    --red: rgb(141, 4, 3);
+}
+
+/* Start Login CSS */
+
+body,
+.signin {
+    background-color: #d3d3d3;
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+    font-size: 0.9em;
+    letter-spacing: 0.05em;
+}
+
+/* unvisited link */
+a:link {
+    color: #fff;
+    text-underline: none;
+}
+
+/* visited link */
+a:visited {
+    color: #fff;
+    text-underline: none;
+}
+
+/* mouse over link */
+a:hover {
+    color: rgb(141, 4, 3) ;
+    text-underline: none;
+}
+
+.link {
+    color: #fff;
+    text-underline: none;
+}
+
+.login {
+    position: relative;
+    height: 110vh;
+    width: 25vw;
+    margin: auto;
+    padding: 60px 60px;
+    background-size: cover;
+    background-color: #505050;
+    box-shadow: 0px 30px 60px -5px #2e2e2e;
+}
+
+/* Responsive */
+form {
+    padding-top: 3em;
+}
+
+.active {
+    border-bottom: 2px solid #dedede;
+}
+
+/* Responsive */
+h2 {
+    font-size: 2vw;
+    text-transform: uppercase;
+    padding-bottom: 0.6vh;
+    display: inline-block;
+    font-weight: 100;
+}
+
+span {
+    text-transform: uppercase;
+    font-size: 12px;
+    opacity: 0.4;
+    display: inline-block;
+    position: relative;
+    top: -65px;
+    transition: all 0.5s ease-in-out;
+}
+
+.text {
+    width: 89%;
+    padding: 10px 20px;
+    display: block;
+    height: 15px;
+    border-radius: 20px;
+    background: rgba(180, 180, 180, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0);
+    overflow: hidden;
+    margin-top: 15px;
+    transition: all 0.5s ease-in-out;
+}
+
+.text:focus {
+    outline: 0;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    background: rgba(0, 0, 0, 0);
+}
+
+/*  Responsive */
+.text:focus + span {
+    opacity: 0.6;
+}
+
+/*  Responsive */
+input[type="text"],
+input[type="password"] {
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+}
+
+input {
+    display: inline-block;
+    padding-top: 20px;
+    font-size: 14px;
+}
+
+h2,
+span,
+.custom-checkbox {
+    margin-left: 0.4em;
+}
+
+.custom-checkbox {
+    -webkit-appearance: none;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 8px;
+    border-radius: 2px;
+    display: inline-block;
+    position: relative;
+    top: 6px;
+}
+
+.custom-checkbox:checked {
+    background-color: rgb(141, 4, 3);
+}
+
+.custom-checkbox:checked:after {
+    content: '\2714';
+    font-size: 10px;
+    position: absolute;
+    top: 1px;
+    left: 4px;
+    color: #fff;
+}
+
+.custom-checkbox:focus {
+    outline: none;
+}
+
+label {
+    display: inline-block;
+    padding-top: 10px;
+    padding-left: 5px;
+}
+
+.signin {
+    background-color: #8d0403;
+    color: #FFF;
+    width: 100%;
+    padding: 10px 20px;
+    display: block;
+    height: 39px;
+    border-radius: 20px;
+    margin-top: 30px;
+    transition: all 0.5s ease-in-out;
+    border: none;
+    text-transform: uppercase;
+}
+
+.signin:hover {
+    background: #c10612;
+    cursor: pointer;
+    /*  box-shadow: 0px 4px 35px -5px #c10612;  */
+}
+
+hr {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    top: 3vh;
+    position: relative;
+}
+
+/* Image File Class aka Round Image */
+img {
+    width: 25%;
+    margin-left: 40%;
+
+}
+
+.error{
+    color: white;
+}
+
+/* ----------------------- */
+/* ----------------------- */
+/* ----------------------- */
+/* Responsive for Mobile */
+
+@media (max-width: 600px) {
+
+    body,
+    .signin {
+        background-color: #d3d3d3;
+        font-family: 'Montserrat', sans-serif;
+        color: #fff;
+        font-size: 0.9em;
+        letter-spacing: 0.05em;
+        max-height: 60%;
+        text-align: center;
+        height: 100%;
+        width: 100%;
+        vertical-align: middle;
+        margin: auto;
+        padding-top: 3%;
+    }
+
+    /* unvisited link */
+    a:link {
+        color: #fff;
+        text-underline: none;
+    }
+
+    /* visited link */
+    a:visited {
+        color: #fff;
+        text-underline: none;
+    }
+
+    /* mouse over link */
+    a:hover {
+        color: rgb(141, 4, 3) ;
+        text-underline: none;
+    }
+
+    .link {
+        color: #fff;
+        text-underline: none;
+    }
+
+    .login {
+        height: 100%;
+        width: 70%;
+        padding: 60px 60px;
+        background-size: cover;
+        background-color: #505050;
+        box-shadow: 0 30px 60px -5px #2e2e2e;
+        margin: auto;
+    }
+
+    /* Responsive */
+    form {
+        padding-top: 3em;
+    }
+
+    .active {
+        border-bottom: 2px solid #dedede;
+    }
+
+    /* Responsive */
+    h2 {
+        font-size: 20px;
+        text-transform: uppercase;
+        padding-bottom: 0.6vh;
+        display: inline-block;
+        font-weight: 100;
+    }
+
+    span {
+        text-transform: uppercase;
+        font-size: 12px;
+        opacity: 0.4;
+        display: inline-block;
+        position: relative;
+        top: -65px;
+        transition: all 0.5s ease-in-out;
+    }
+
+    .text {
+        width: 89%;
+        padding: 10px 20px;
+        display: block;
+        height: 15px;
+        border-radius: 20px;
+        background: rgba(180, 180, 180, 0.1);
+        border: 2px solid rgba(255, 255, 255, 0);
+        overflow: hidden;
+        margin-top: 15px;
+        transition: all 0.5s ease-in-out;
+    }
+
+    .text:focus {
+        outline: 0;
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        border-radius: 20px;
+        background: rgba(0, 0, 0, 0);
+    }
+
+    /*  Responsive */
+    .text:focus + span {
+        opacity: 0.6;
+    }
+
+    /*  Responsive */
+    input[type="text"],
+    input[type="password"] {
+        font-family: 'Montserrat', sans-serif;
+        color: #fff;
+    }
+
+    input {
+        display: inline-block;
+        padding-top: 5%;
+        font-size: 14px;
+    }
+
+    h2,
+    span,
+    .custom-checkbox {
+        margin-left: 0.4em;
+    }
+
+    .custom-checkbox {
+        -webkit-appearance: none;
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 8px;
+        border-radius: 2px;
+        display: inline-block;
+        position: relative;
+        top: 6px;
+    }
+
+    .custom-checkbox:checked {
+        background-color: rgb(141, 4, 3);
+    }
+
+    .custom-checkbox:checked:after {
+        content: '\2714';
+        font-size: 10px;
+        position: absolute;
+        top: 1px;
+        left: 4px;
+        color: #fff;
+    }
+
+    .custom-checkbox:focus {
+        outline: none;
+    }
+
+    label {
+        display: inline-block;
+        padding-top: 10px;
+        padding-left: 5px;
+    }
+
+    .signin {
+        background-color: #8d0403;
+        color: #FFF;
+        width: 80%;
+        padding: 10px 20px;
+        display: block;
+        height: 39px;
+        border-radius: 20px;
+        margin-top: 30px;
+        transition: all 0.5s ease-in-out;
+        border: none;
+        text-transform: uppercase;
+    }
+
+    .signin:hover {
+        background: #c10612;
+        cursor: pointer;
+        /*  box-shadow: 0px 4px 35px -5px #c10612;  */
+    }
+
+    hr {
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        top: 3vh;
+        position: relative;
+    }
+
+    /* Image File Class aka Round Image */
+    img {
+        width: 25%;
+        margin-left: -20%;
+    }
+
+    .error {
+        color: white;
+    }
+}

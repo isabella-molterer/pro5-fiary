@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Passwort ändern{% endblock %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+
+    <style>
+        h2 {
+            color: var(--red);
+        }
+
+        #form {
+            width: 90%;
+        }
+    </style>
+
+    <!-- Headline of the Register Form  -->
+    <h2> Change password - {{ user.username }}</h2><br>
+
+    <div id="form">
+        {{ form_start(form , {'attr': {'novalidate':'novalidate'}} ) }}
+            {{ form_row(form.newPassword.first, {'attr': {class: 'text'} })  }}
+            {{ form_row(form.newPassword.second, {'attr': {class: 'text'} })  }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

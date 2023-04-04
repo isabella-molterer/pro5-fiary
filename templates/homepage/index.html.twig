@@ -1,0 +1,182 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Homepage{% endblock %}
+{% block stylesheets %}
+{% endblock %}
+{% block body %}
+    <style>
+        a {
+            color: white;
+        }
+
+        a:hover {
+            text-decoration: none;
+            color: white;
+        }
+
+        .table-responsive  thead {
+            background-color: rgba(0, 0, 0, 0.85);
+            color: #fff;
+        }
+
+        #fiaryimage {
+            width: 13%;
+            height: 13%;
+            margin: 2% auto -2% auto;
+        }
+
+        #fiaryimage img {
+            width: 100%;
+            height: 65%;
+        }
+
+        @media screen and (max-width: 991px) {
+            .base-container {
+                margin-top: 6em;
+            }
+
+        }
+
+        @media screen and (min-width: 992px) and (max-width: 1201px) {
+            #fiaryimage img {
+                width: 100%;
+                height: 55%;
+            }
+        }
+
+        #eintraghinzu {
+            margin: auto;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function() {
+            var height = $(".mobileNav").height();
+            if(height > 0)
+            {
+                $(".base-container").css("margin-top","10px");
+            }
+        });
+    </script>
+
+    <div id="fiaryimage">
+        <img src="{{  asset('assets/img/logo.png') }}" alt="logo homepage">
+    </div>
+
+    <hr>
+
+    <a href="{{ path('newcraueentry') }}" id="eintraghinzu" class="bigredbutton">Neuen Ausfahrts-Eintrag hinzufügen!</a>
+
+    <hr>
+
+    <!-- Statistiken Part 3 -->
+    <!-- https://codepen.io/jakubtursky/pen/vEwZop -->
+
+    <div id="projectFacts" class="sectionClass">
+        <div class="fullWidth eight columns">
+
+            <div class="projectFactsWrap ">
+                <div class="item wow fadeInUpBig animated animated" data-number="12" style="visibility: visible;">
+                    <i class="fa fa-briefcase"></i>
+                    <p id="number1" class="number">12</p>
+                    <span></span>
+                    <p>Gesamtstunden<br>{{ month }} {{ year }}</p>
+                </div>
+                <div class="item wow fadeInUpBig animated animated" data-number="55" style="visibility: visible;">
+                    <i class="fa fa-smile-o"></i>
+                    <p id="number2" class="number">{{ einsaetze_month }}</p>
+                    <span></span>
+                    <p>Einsätze<br>{{ month }} {{ year }}</p>
+                </div>
+                <div class="item wow fadeInUpBig animated animated" data-number="359" style="visibility: visible;">
+                    <i class="fa fa-coffee"></i>
+                    <p id="number3" class="number">{{ taetigkeiten_month }}</p>
+                    <span></span>
+                    <p>Tätigkeiten<br>{{ month }} {{ year }}</p>
+                </div>
+                <div class="item wow fadeInUpBig animated animated" data-number="246" style="visibility: visible;">
+                    <i class="fa fa-camera"></i>
+                    <p id="number4" class="number">{{ uebungen_month }}</p>
+                    <span></span>
+                    <p>Übungen<br>{{ month }} {{ year }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr><br>
+
+    <div id="firstentry">
+        <div class="blog-card">
+            <div class="description">
+                <h2>{{ entry.title }}</h2>
+                <h3>Beitrag erstellt am: {{ entry.date|date('d.m.Y') }}</h3>
+                <p>{{ entry.feed }}</p><br>
+            </div>
+        </div>
+    </div>
+
+    <br><hr><br>
+
+    <!--Tabelle mit letzten aktuellen Entries-->
+    <p></p>
+    <div class="table-responsive">
+        <table class="fixed_header table display "  style="width:100%">
+
+            <thead>
+            <tr>
+                <th>Datum</th>
+                <th>Kategorie</th>
+                <th>Titel/Beschreibung</th>
+                <th>Straße/Hausnummer</th>
+                <th>Bearbeiten</th>
+                <th>Löschen</th>
+                <th>Speichern</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for eintrag in eintraege %}
+                <tr>
+                    <td>{% if eintrag.beginnDatum %}{{ eintrag.beginnDatum|date('d.m.Y') }}{% else %}  {% endif %}</td>
+                    <td> {% if eintrag.kategorie %}{{ eintrag.kategorie }}{% else %}  {% endif %}</td>
+                    <td>{% if eintrag.beschreibung %}{{ eintrag.beschreibung }}{% else %}  {% endif %}</td>
+                    <td>{% if eintrag.strasse %}{{ eintrag.strasse }}{% else %}  {% endif %} {% if eintrag.hausnummer %}{{ eintrag.hausnummer }}{% else %}  {% endif %}</td>
+
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <td>
+                            <button type="button"  class="btn smallredbutton">
+                                <a href="{{ path('entries_edit', {'id':eintrag.idlogbuch} ) }}">
+                                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#fff" width="20" height="20"
+                                         viewBox="0 0 129 129" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 129 129">
+                                        <path d="m119.2,114.3h-109.4c-2.3,0-4.1,1.9-4.1,4.1s1.9,4.1 4.1,4.1h109.5c2.3,0 4.1-1.9 4.1-4.1s-1.9-4.1-4.2-4.1z"></path>
+                                        <path d="m5.7,78l-.1,19.5c0,1.1 0.4,2.2 1.2,3 0.8,0.8 1.8,1.2 2.9,1.2l19.4-.1c1.1,0 2.1-0.4 2.9-1.2l67-67c1.6-1.6 1.6-4.2 0-5.9l-19.2-19.4c-1.6-1.6-4.2-1.6-5.9-1.77636e-15l-13.4,13.5-53.6,53.5c-0.7,0.8-1.2,1.8-1.2,2.9zm71.2-61.1l13.5,13.5-7.6,7.6-13.5-13.5 7.6-7.6zm-62.9,62.9l49.4-49.4 13.5,13.5-49.4,49.3-13.6,.1 .1-13.5z"></path>
+                                    </svg>
+                                </a>
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button"  class="btn smallredbutton">
+                                <a href="{{ path('entries_delete', {'id':eintrag.idlogbuch} ) }}">
+                                    <i><img src="{{  asset('assets/img/delete_big.svg') }}" alt="delete symbol"></i>
+                                </a>
+                            </button>
+                        </td>
+                        <td>
+                            <a href="{{ path('entries_save', {'id':eintrag.idlogbuch} ) }}">
+                                <i><img src="{{  asset('assets/img/pdf.svg') }}" alt="delete symbol"></i>
+                            </a>
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        sessionStorage.clear();
+    </script>
+{% endblock %}
+
+

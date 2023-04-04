@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Neuen User registrieren!{% endblock %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+    <style>
+        #form {
+            width: 90%;
+            color: var(--red);
+        }
+    </style>
+
+    <br>
+    <!-- Headline of the Register Form  -->
+    <h2> Register a new User for Fiary </h2><br>
+
+    <div id="form">
+        {{ form_start(form , {'attr': {'novalidate':'novalidate'}} ) }}
+        {{ form_row(form.username, {attr: {class: 'text'} }) }}
+        {{ form_row(form.firstname, {attr: {class: 'text'} }) }}
+        {{ form_row(form.lastname, {attr: {class: 'text'} }) }}
+        {{ form_row(form.email, {attr: {class: 'text'} })  }}
+        {{ form_row(form.plainPassword.first, {attr: {class: 'text'} })  }}
+        {{ form_row(form.plainPassword.second, {attr: {class: 'text'} })  }}
+
+        <button type="submit" class="bigredbutton">Register</button>
+        {{ form_end(form) }}
+        <br><button class="bigredbutton">Zurück zur Liste</button>
+    </div>
+{% endblock %}
