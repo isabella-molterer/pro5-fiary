@@ -44,17 +44,17 @@ Some JavaScript was also used for smaller animations and the display and export 
 ### Project Contributers
 Concept by Birgit Haselmayr, Isabella Molterer and Natascha Rammelmüller
 
-Frontend Developer: Natascha
-Fullstack Developer: Isabella
+Frontend Developer: Natascha  
+Fullstack Developer: Isabella  
 Backend Developer: Birgit
 
 
 ### My Project Responsibilities
 
-Design: 
+#### Design:
 * Conceptualizing the initial design draft with a responsive design
 
-Development:
+#### Development:
 * Initial Project Setup
 * Authentication and Permissions: 
     - Implementing authentication logic 
