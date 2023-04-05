@@ -33,11 +33,9 @@ class CreateEntryFlow extends FormFlow implements EventSubscriberInterface
 
     public function onPostBindSavedData(PostBindSavedDataEvent $event) {
         if ($event->getStepNumber() === 4) {
-            print('hello');
             $formData = $event->getFormData();
             $besatzung=new Fahrzeugbesatzung();
             $formData->addBesatzung($besatzung);
-            print('bye');
             $array = $formData->getBesatzung();
 
             foreach ($array as $key => $value){
@@ -45,7 +43,6 @@ class CreateEntryFlow extends FormFlow implements EventSubscriberInterface
                     $formData->removeBesatzung($array[$key]);
                 }
             }
-            print('ende');
         }
     }
 

@@ -1,4 +1,3 @@
-
 @-webkit-keyframes bake-pie {
     from {
         -webkit-transform: rotate(0deg) translate3d(0, 0, 0);
@@ -12,21 +11,25 @@
         transform: rotate(0deg) translate3d(0, 0, 0);
     }
 }
+
 .pie-chart--wrapper {
     width: 400px;
     margin: 30px auto;
     text-align: center;
 }
+
 .pie-chart__pie, .pie-chart__legend {
     display: inline-block;
     vertical-align: top;
 }
+
 .pie-chart__pie {
     position: relative;
     height: 200px;
     width: 200px;
     margin: 10px auto 35px;
 }
+
 .pie-chart__pie::before {
     content: "";
     display: block;
@@ -39,6 +42,7 @@
     top: 50px;
     left: 50px;
 }
+
 .pie-chart__pie::after {
     content: "";
     display: block;
@@ -58,6 +62,7 @@
     -webkit-animation: bake-pie 1s;
     animation: bake-pie 1s;
 }
+
 .slice span {
     display: block;
     position: absolute;
@@ -82,14 +87,17 @@
     width: 65%;
     word-wrap: break-word;
 }
+
 .pie-chart__legend li {
     margin-bottom: 0.7em;
     padding-left: 0.5em;
     border-left: 1.25em solid black;
 }
+
 .pie-chart__legend em {
     font-style: normal;
 }
+
 .pie-chart__legend span {
     float: right;
 }
@@ -98,6 +106,7 @@
     display: flex;
     flex-direction: row;
 }
+
 @media (max-width: 700px) {
     .pie-charts {
         flex-direction: column;
@@ -114,6 +123,7 @@
         transform: scaleY(1);
     }
 }
+
 @keyframes bars {
     from {
         -webkit-transform: scaleY(0);
@@ -125,8 +135,6 @@
     }
 }
 
-/* Style from the 2nd Part */
-
 @-webkit-keyframes bars {
     from {
         -webkit-transform: scaleY(0);
@@ -137,6 +145,7 @@
         transform: scaleY(1);
     }
 }
+
 @keyframes bars {
     from {
         -webkit-transform: scaleY(0);
@@ -272,7 +281,6 @@ ul {
     justify-content: space-between;
 }
 
-
 .numbers{
     text-align:center;
     padding-right:20px;
@@ -288,13 +296,9 @@ ul {
     margin-bottom: 3%;
 }
 
-
-/** Statistiken Part 3 **/
-
 #stat3heading {
     text-align: center;
 }
-
 
 .sectionClass {
     padding: 20px 0px 50px 0px;
@@ -327,7 +331,6 @@ ul {
     padding-left: 10px;
 }
 
-
 .headerLine {
     width: 160px;
     height: 2px;
@@ -335,14 +338,12 @@ ul {
     background: #101F2E;
 }
 
-
 .projectFactsWrap{
     display: flex;
     margin-top: 30px;
     flex-direction: row;
     flex-wrap: wrap;
 }
-
 
 #projectFacts .fullWidth{
     padding: 0;
@@ -356,22 +357,18 @@ ul {
 }
 
 .projectFactsWrap .item:nth-child(1){
-    /*background: rgb(187, 98, 214); */
     background: rgb(176, 59, 63)
 }
 
 .projectFactsWrap .item:nth-child(2){
-    /*background: rgb(223, 82, 100);*/
     background: rgb(223, 96, 97);
 }
 
 .projectFactsWrap .item:nth-child(3){
-    /*background: rgb(255, 154, 153);*/
     background: rgb(159, 32, 41);
 }
 
 .projectFactsWrap .item:nth-child(4){
-    /*background: rgb(241, 140, 85);*/
     background: rgb(109, 11, 16);
 }
 
@@ -388,7 +385,6 @@ ul {
     padding: 10px;
 }
 
-
 .projectFactsWrap .item span{
     width: 60px;
     background: rgba(255, 255, 255, 0.8);
@@ -397,13 +393,11 @@ ul {
     margin: 0 auto;
 }
 
-
 .projectFactsWrap .item i{
     vertical-align: middle;
     font-size: 50px;
     color: rgba(255, 255, 255, 0.8);
 }
-
 
 .projectFactsWrap .item:hover i, .projectFactsWrap .item:hover p{
     color: white;
@@ -419,9 +413,7 @@ ul {
     }
 }
 
-
 /* Responsive für den ersten Part */
-
 @media (max-width: 786px){
     .consumption-panel {
         width: 100%;
@@ -460,9 +452,3 @@ ul {
         margin-bottom: 5%;
     }
 }
-
-
-
-
-
-

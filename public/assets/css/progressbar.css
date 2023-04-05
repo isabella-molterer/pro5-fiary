@@ -1,25 +1,19 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
-*{
+
+* {
     margin:0;
     padding:0;
 }
 
-/* Color Constants */
 :root {
     --grey: #505050;
     --red: rgb(141, 4, 3);
 }
 
-/* Die Color Konstanten können folgendermaßen genutzt werden - Beispiel:
-background: var(--grey); */
-
-/* Start Login CSS */
-
 body{
     background: var(--grey);
 }
 
-/* Aussehen des eigentlichen Forms */
 #form-id{
     width:85%;
     margin:50px auto;
@@ -37,6 +31,7 @@ body{
     margin:0 10%;
     position: relative;
 }
+
 #form-id fieldset:not(:first-of-type){
     display:none;
 }
@@ -75,23 +70,6 @@ body{
     width:100%;
 }
 
-/*
-.links {
-    width: 50%;
-    float: left;
-}
-
-.clear {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-.rechts {
-    width: 50%;
-    float: right;
-}*/
-
 #form-id .custom-button{
     width:100px;
     background: var(--red);
@@ -112,18 +90,19 @@ body{
     color:var(--red);
     text-transform:uppercase;
 }
+
 .sub-title{
     font-size:13px;
     margin-bottom:20px;
     font-weight:normal;
     color:#666;
 }
-/*Progressbar*/
+
 .progressbar {
     margin-bottom: 40px;
-    /*CSS counters to number the steps*/
     counter-reset: step;
 }
+
 .progressbar li {
     margin-bottom: 20px;
     list-style-type: none;
@@ -134,6 +113,7 @@ body{
     float: left;
     position: relative;
 }
+
 .progressbar li:before {
     content: counter(step);
     counter-increment: step;
@@ -146,7 +126,7 @@ body{
     border-radius: 3px;
     margin: 0 auto 5px auto;
 }
-/*progressbar connectors*/
+
 .progressbar li:after {
     content: '';
     width: 100%;
@@ -155,24 +135,16 @@ body{
     position: absolute;
     left: -50%;
     top: 9px;
-    z-index:-1; /*put it behind the numbers*/
+    z-index:-1;
 }
 .progressbar li:first-child:after {
-    /*connector not needed before the first step*/
     content: none;
 }
-/*marking active/completed steps green*/
-/*The number of the step and the connector before it = green*/
+
 .progressbar li.active:before,  .progressbar li.active:after{
     background: var(--red);
     color: white;
 }
-
-/* Checkbox CSS */
-
-/* Kommt hier noch */
-
-/* Focus Colors */
 
 input:focus {
     outline: none !important;
@@ -198,7 +170,6 @@ fieldset:focus {
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);
 }
 
-
 .legends{
     font-size: 1rem;
     color: var(--red);
@@ -219,9 +190,7 @@ div#ort, div#geschädigter{
 #form-id div > label:nth-child(1), #form-id fieldset div.einsatz>label.required, div.allgemein div.links label.required,
 form#form-id fieldset div#allgemein label.required{
     font-weight: bold;
-
     font-variant-caps: all-small-caps;
-
     font-size: 1.2em;
     color:var(--red);
 }
@@ -237,25 +206,20 @@ form#form-id fieldset div#allgemein label.required{
 
 #form-id fieldset div.einsatz > label.required{
     width:100%;
-
 }
 
 div.checkboxFormat>label{
     font-weight:lighter!important;
     font-size:0.8em !important;
-
 }
+
 div.checkboxFormat>label>input{
    margin-bottom:0!important;
 }
 
 .errors{
     background: #8d0403;
-
 }
-
-
-/*Toggled Sidebar in New-Entry*/
 
 #wrapper {
     -moz-transition: all 0.5s ease;
@@ -263,20 +227,17 @@ div.checkboxFormat>label>input{
     -webkit-transition: all 0.5s ease;
     padding-right: 0;
     transition: all 0.5s ease;
-
 }
 
 #wrapper.toggled #sidebar-wrapper {
-    width: 300px;                       /* SZEROKOŚĆ SIDEBARA */
+    width: 300px;
     display:inherit;
-
 }
 
 #sidebar-wrapper {
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     -webkit-transition: all 0.5s ease;
-                   /* KOLOR SIDEBARA */
     height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
@@ -287,9 +248,7 @@ div.checkboxFormat>label>input{
     right:0;
     position:fixed;
     top:20px;
-
 }
-
 
 #sidebar-wrapper::-webkit-scrollbar {
     display: none;
@@ -302,7 +261,7 @@ div.checkboxFormat>label>input{
     position: absolute;
     top: 0;
     width: 300px;
-    right: 0;/* SZEROKOŚĆ ZAWARTOŚCI SIDEBARA */
+    right: 0;
     background:var(--red);
     z-index:1000;
 }
@@ -322,7 +281,7 @@ div.checkboxFormat>label>input{
 }
 
 .sidebar-navnew .dropdown-menu {
-    background-color: grey;             /* KOLOR BG DROPDOWNA */
+    background-color: grey;
     border-radius: 0;
     border: none;
     box-shadow: none;
@@ -349,7 +308,6 @@ div.checkboxFormat>label>input{
     height: 65px;
     line-height: 44px;
 }
-
 
 .hamburger {
     background: var(--red);
@@ -431,29 +389,25 @@ div.checkboxFormat>label>input{
     width: 100%;
 }
 
-
-
-/* FOR left side */
 .navbarnew-fixed-top {
     left: auto;
 }
 
-
-/*Häuserliste in Navbar*/
 #häuser_newentry_length{
     text-align:right!important;
     float:right!important;
     padding-top:20px!important;
 
 }
+
 .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate{
     color:white!important;
 }
 
-
 #homebutton{
     background:var(--red);
 }
+
 #häuser_newentry_wrapper{
     padding-top:70px;
     padding-right:10px;
@@ -467,8 +421,8 @@ th.sorting, th.sorting_asc{
 .dataTables_wrapper .dataTables_filter{
     text-align:center!important;
     float:unset!important;
-
 }
+
 .dataTables_wrapper .dataTables_filter input{
     padding:10px!important;
 }

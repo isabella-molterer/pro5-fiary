@@ -10,9 +10,6 @@
     --red: rgb(141, 4, 3);
 }
 
-/* Die Color Konstanten können folgendermaßen genutzt werden - Beispiel:
-background: var(--grey); */
-
 /* Start Login CSS */
 
 body{
@@ -23,7 +20,6 @@ body{
     background: #fff;
 }
 
-/* Aussehen des eigentlichen Forms */
 #form-id{
     width:85%;
     margin:50px auto;
@@ -79,23 +75,6 @@ body{
     width:100%;
 }
 
-/*
-.links {
-    width: 50%;
-    float: left;
-}
-
-.clear {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-.rechts {
-    width: 50%;
-    float: right;
-}*/
-
 #form-id .custom-button{
     width:100px;
     background: var(--red);
@@ -138,10 +117,9 @@ body{
     font-weight:normal;
     color:#666;
 }
-/*Progressbar*/
+
 .craue_formflow_steplist {
     margin-bottom: 40px;
-    /*CSS counters to number the steps*/
     counter-reset: step;
 }
 .craue_formflow_steplist li {
@@ -172,7 +150,7 @@ text-decoration:none;
     border-radius: 3px;
     margin: 0 auto 5px auto;
 }
-/*progressbar connectors*/
+
 .craue_formflow_steplist li:after {
     content: '';
     width: 100%;
@@ -181,14 +159,12 @@ text-decoration:none;
     position: absolute;
     left: -50%;
     top: 9px;
-    z-index:-1; /*put it behind the numbers*/
+    z-index:-1;
 }
 .craue_formflow_steplist li:first-child:after {
-    /*connector not needed before the first step*/
     content: none;
 }
-/*marking active/completed steps green*/
-/*The number of the step and the connector before it = green*/
+
 .craue_formflow_steplist li.craue_formflow_current_step:before,  .craue_formflow_steplist li.craue_formflow_current_step:after, .craue_formflow_steplist li.craue_formflow_done_step:before{
     background: var(--red);
     color: white;
@@ -197,12 +173,6 @@ text-decoration:none;
 .craue_formflow_steplist li.craue_formflow_done_step:after{
     background-color:var(--red);
 }
-
-/* Checkbox CSS */
-
-/* Kommt hier noch */
-
-/* Focus Colors */
 
 input:focus {
     outline: none !important;
@@ -227,7 +197,6 @@ fieldset:focus {
     border-color: #8d0403;
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);
 }
-
 
 .legends{
     font-size: 1rem;
@@ -275,6 +244,7 @@ div.checkboxFormat>label{
     font-size:0.8em !important;
 
 }
+
 div.checkboxFormat>label>input{
    margin-bottom:0!important;
 }
@@ -283,9 +253,6 @@ div.checkboxFormat>label>input{
     background: #8d0403;
 
 }
-
-
-/*Toggled Sidebar in New-Entry*/
 
 #wrapper {
     -moz-transition: all 0.5s ease;
@@ -297,7 +264,7 @@ div.checkboxFormat>label>input{
 }
 
 #wrapper.toggled #sidebar-wrapper {
-    width: 300px;                       /* SZEROKOŚĆ SIDEBARA */
+    width: 300px;                     
     display:inherit;
 
 }
@@ -306,7 +273,6 @@ div.checkboxFormat>label>input{
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     -webkit-transition: all 0.5s ease;
-                   /* KOLOR SIDEBARA */
     height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
@@ -317,7 +283,6 @@ div.checkboxFormat>label>input{
     right:0;
     position:fixed;
     top:20px;
-
 }
 
 
@@ -332,7 +297,7 @@ div.checkboxFormat>label>input{
     position: absolute;
     top: 0;
     width: 300px;
-    right: 0;/* SZEROKOŚĆ ZAWARTOŚCI SIDEBARA */
+    right: 0;
     background:var(--red);
     z-index:1000;
 }
@@ -352,7 +317,7 @@ div.checkboxFormat>label>input{
 }
 
 .sidebar-navnew .dropdown-menu {
-    background-color: grey;             /* KOLOR BG DROPDOWNA */
+    background-color: grey;
     border-radius: 0;
     border: none;
     box-shadow: none;
@@ -379,7 +344,6 @@ div.checkboxFormat>label>input{
     height: 65px;
     line-height: 44px;
 }
-
 
 .hamburger {
     background: var(--red);
@@ -461,29 +425,25 @@ div.checkboxFormat>label>input{
     width: 100%;
 }
 
-
-
-/* FOR left side */
 .navbarnew-fixed-top {
     left: auto;
 }
 
-
-/*Häuserliste in Navbar*/
 #häuser_newentry_length{
     text-align:right!important;
     float:right!important;
     padding-top:20px!important;
 
 }
+
 .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate{
     color:white!important;
 }
 
-
 #homebutton{
     background:var(--red);
 }
+
 #häuser_newentry_wrapper{
     padding-top:70px;
     padding-right:10px;
@@ -497,8 +457,8 @@ th.sorting, th.sorting_asc{
 .dataTables_wrapper .dataTables_filter{
     text-align:center!important;
     float:unset!important;
-
 }
+
 .dataTables_wrapper .dataTables_filter input{
     padding:10px!important;
 }
@@ -516,19 +476,11 @@ div#createEntry_besatzung li{
     margin-bottom:30px;
 }
 
-.remove-tag{
-
-}
-
 div#createEntry_besatzung>div{
     margin-bottom:30px;
 }
 
-
-/* Responsive */
-
 @media screen and (min-width: 651px) and (max-width: 700px) {
-
     .craue_formflow_steplist li {
         margin-bottom: 20px;
         list-style-type: none;
@@ -541,11 +493,9 @@ div#createEntry_besatzung>div{
         word-wrap: break-word;
         padding-left: 3%;
     }
-
 }
 
 @media screen and (min-width: 601px) and (max-width: 1000px) {
-
     #form-id fieldset{
         background:#fff;
         border:0 none;
@@ -566,13 +516,10 @@ div#createEntry_besatzung>div{
         padding: 0;
     }
 
-    /*Progressbar*/
     .craue_formflow_steplist {
         margin: 17% auto 5% auto;
-        /*CSS counters to number the steps*/
         counter-reset: step;
         word-break: break-all;
-
     }
 
     .craue_formflow_steplist li {
@@ -591,9 +538,6 @@ div#createEntry_besatzung>div{
 
 
 @media screen and (max-width: 650px) {
-
-    /* Fieldset */
-
     #form-id {
         width: 94%;
         margin: 50px auto;
@@ -631,7 +575,4 @@ div#createEntry_besatzung>div{
         position: relative;
         font-size: 0;
     }
-
-
-
 }
