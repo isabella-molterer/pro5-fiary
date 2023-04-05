@@ -1,9 +1,6 @@
 jQuery(document).ready(function ($) {
-    // browser window scroll (in pixels) after which the "back to top" link is shown
     var offset = 300,
-        //browser window scroll (in pixels) after which the "back to top" link opacity is reduced
         offset_opacity = 1200,
-        //grab the "back to top" link
         $back_to_top = $('.cd-top');
 
     //hide or show the "back to top" link
@@ -22,9 +19,4 @@ jQuery(document).ready(function ($) {
         }, 1000
         );
     });
-
-
-
 });
-
-

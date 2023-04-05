@@ -339,8 +339,6 @@ class PageController extends Controller //AbstracController
             }
 
             if ($request->isMethod('POST')) {
-                print('POST');
-
                 $em = $this->getDoctrine()->getManager();
                 $repository =  $em->getRepository(Fahrzeugbesatzung::class);
 
@@ -349,11 +347,9 @@ class PageController extends Controller //AbstracController
                     foreach ($besatzungsForm as $bform) {
                         $bform->handleRequest($request);
                         $count++;
-                        print($count);
 
                         foreach ($besatzung as $member) {
                             if ($member->getIdmitgliederMitglieder() == $bform->get('idmitgliederMitglieder')->getData()){
-                                print('small ');
                                 $b = $bform->getData();
                                 $em->persist($b);
                                 $em->flush();
@@ -364,7 +360,6 @@ class PageController extends Controller //AbstracController
                                 $fahrzeugId = $bform->get('idfahrzeugFahrzeug')->getData();
                                 $mitgliederId = $bform->get('idmitgliederMitglieder')->getData();
                                 $atemschutz = $bform->get('atemschutz')->getData();
-                                print('rolle:' . $rolle . ' und ' . $member->getRolle());
                                 $qb = $repository->createQueryBuilder('fb');
                                 $p = $qb->update()
                                     ->set('fb.rolle', '?1')
@@ -379,11 +374,6 @@ class PageController extends Controller //AbstracController
                                     ->setParameter(5, $bid)
                                     ->getQuery()
                                     ->execute();
-                                if ($p) {
-                                    print('success');
-                                } else {
-                                    print('fail');
-                                }
                             }
                             break;
                         }
@@ -766,7 +756,7 @@ class PageController extends Controller //AbstracController
                 $haus->setHausNr($data[1]);
                 $bewohner=base64_encode($data[2]); //encode the names of bewohner
                 $haus->setBewohner($bewohner);
-              for ($c=0; $c < $num; $c++) {
+               for ($c=0; $c < $num; $c++) {
                     echo $data[$c] . "<br />\n";
                 }
                 $em = $this->getDoctrine()->getManager();

@@ -1,10 +1,7 @@
-/* Color Constants */
 :root {
     --grey: #505050;
     --red: rgb(141, 4, 3);
 }
-
-/* Start Login CSS */
 
 body,
 .signin {
@@ -15,27 +12,20 @@ body,
     letter-spacing: 0.05em;
 }
 
-/* unvisited link */
 a:link {
     color: #fff;
-    text-underline: none;
 }
 
-/* visited link */
 a:visited {
     color: #fff;
-    text-underline: none;
 }
 
-/* mouse over link */
 a:hover {
     color: rgb(141, 4, 3) ;
-    text-underline: none;
 }
 
 .link {
     color: #fff;
-    text-underline: none;
 }
 
 .login {
@@ -49,7 +39,6 @@ a:hover {
     box-shadow: 0px 30px 60px -5px #2e2e2e;
 }
 
-/* Responsive */
 form {
     padding-top: 3em;
 }
@@ -58,7 +47,6 @@ form {
     border-bottom: 2px solid #dedede;
 }
 
-/* Responsive */
 h2 {
     font-size: 2vw;
     text-transform: uppercase;
@@ -97,12 +85,10 @@ span {
     background: rgba(0, 0, 0, 0);
 }
 
-/*  Responsive */
 .text:focus + span {
     opacity: 0.6;
 }
 
-/*  Responsive */
 input[type="text"],
 input[type="password"] {
     font-family: 'Montserrat', sans-serif;
@@ -171,7 +157,6 @@ label {
 .signin:hover {
     background: #c10612;
     cursor: pointer;
-    /*  box-shadow: 0px 4px 35px -5px #c10612;  */
 }
 
 hr {
@@ -180,24 +165,16 @@ hr {
     position: relative;
 }
 
-/* Image File Class aka Round Image */
 img {
     width: 25%;
     margin-left: 40%;
-
 }
 
 .error{
     color: white;
 }
 
-/* ----------------------- */
-/* ----------------------- */
-/* ----------------------- */
-/* Responsive for Mobile */
-
 @media (max-width: 600px) {
-
     body,
     .signin {
         background-color: #d3d3d3;
@@ -214,19 +191,16 @@ img {
         padding-top: 3%;
     }
 
-    /* unvisited link */
     a:link {
         color: #fff;
         text-underline: none;
     }
 
-    /* visited link */
     a:visited {
         color: #fff;
         text-underline: none;
     }
 
-    /* mouse over link */
     a:hover {
         color: rgb(141, 4, 3) ;
         text-underline: none;
@@ -247,7 +221,6 @@ img {
         margin: auto;
     }
 
-    /* Responsive */
     form {
         padding-top: 3em;
     }
@@ -255,8 +228,7 @@ img {
     .active {
         border-bottom: 2px solid #dedede;
     }
-
-    /* Responsive */
+    
     h2 {
         font-size: 20px;
         text-transform: uppercase;
@@ -295,12 +267,10 @@ img {
         background: rgba(0, 0, 0, 0);
     }
 
-    /*  Responsive */
     .text:focus + span {
         opacity: 0.6;
     }
 
-    /*  Responsive */
     input[type="text"],
     input[type="password"] {
         font-family: 'Montserrat', sans-serif;
@@ -369,7 +339,6 @@ img {
     .signin:hover {
         background: #c10612;
         cursor: pointer;
-        /*  box-shadow: 0px 4px 35px -5px #c10612;  */
     }
 
     hr {
@@ -378,7 +347,6 @@ img {
         position: relative;
     }
 
-    /* Image File Class aka Round Image */
     img {
         width: 25%;
         margin-left: -20%;

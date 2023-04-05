@@ -1,5 +1,4 @@
 /*datepicker*/
-
 form {
     display: flex;
     flex-direction: row;
@@ -15,7 +14,6 @@ form div:nth-child(4), form div:nth-child(5){
 form div, label {
     padding-right: 20px;
     padding-bottom: 5px;
-    /*flex: 50%;*/
 }
 
 form button {
@@ -39,7 +37,6 @@ form > div > label {
     font-style: italic;
 }
 
-
 #accordion {
     width: 100%;
 }
@@ -49,12 +46,14 @@ form > div > label {
     border: 0;
     margin-top: 0;
 }
+
 #accordion .panel-title>a, #accordion .panel-body ul li a{
     color: #000;
     padding: 10px 15px;
     border-bottom: 1px solid var(--red);
     text-decoration: none;
 }
+
 #accordion .panel-heading a.collapsed:hover,
 #accordion .panel-heading a.collapsed:focus {
     background-color: var(--red);
@@ -62,14 +61,17 @@ form > div > label {
     fill: white;
     transition: all 0.2s ease-in;
 }
+
 #accordion .panel-heading a.collapsed:hover::before,
 #accordion .panel-heading a.collapsed:focus::before {
     color: white;
 }
+
 #accordion .panel-heading {
     padding: 0;
     border-radius: 0;
 }
+
 #accordion .panel-heading a:not(.collapsed) {
     color: white;
     background-color: var(--red);
@@ -86,11 +88,6 @@ form > div > label {
     transform: rotate(0deg);
     transition: all 0.2s ease-in;
 }
-/*
-#accordion .panel-body .panel-content {
-    padding: 20px;
-}
-*/
 
 #accordion .panel-body .panel-content ul li {
     list-style: none;
@@ -138,7 +135,6 @@ form > div > label {
     padding: 10px 20px;
 }
 
-/* MITGLIEDER */
 .biggreybutton a, .biggreybutton:hover {
     color: #FFF;
     text-decoration: none;
@@ -161,22 +157,13 @@ form > div > label {
     cursor: pointer;
 }
 
-/* Tabelle*/
 .table-responsive  thead {
     background-color: rgba(0, 0, 0, 0.85);
     color: #fff;
 }
 
-#users .table-responsive tbody tr:nth-child(2n+1), #users .table-responsive tbody tr:nth-child(2n+1)>.sorting_1  {
-
-}
-
 #users .table-responsive tbody tr td:nth-child(5n){
     width: 100px;
-}
-
-#users .table-responsive tbody tr>.sorting_1 {
-
 }
 
 #users .table-responsive .dataTables_paginate.paging_simple_numbers a {
@@ -224,9 +211,7 @@ tr:hover td {
     }
 }
 
-
 @media (max-width: 720px) {
-
     form div:nth-child(4), form div:nth-child(5){
         width: 100% !important;
     }
@@ -237,5 +222,3 @@ tr:hover td {
         margin: 20px auto;
     }
 }
-
-

@@ -1,28 +1,15 @@
-/* Importieren der Schrift die standardmäßig genutzt werden soll */
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
-*{
+
+* {
     margin:0;
     padding:0;
 }
 
-/* Color Constants */
 :root {
-    /*--grey: #505050;*/
     --red: rgb(141, 4, 3);
     --grey: #333333;
 
 }
-
-/* #333333 - darker grey */
-/* Start eigenes CSS */
-
-/* -------------------------------------------*/
-/* -------------------------------------------*/
-
-/* ALLGEMEINES */
-
-/* Für smooth Scrolling d. Buttons */
-
 
 body {
     font-family: 'Montserrat', sans-serif;
@@ -69,7 +56,6 @@ h1 {
     font-weight: bold;
 }
 
-/* Cards Index */
 #firstentry {
     margin-left: 5%;
 }
@@ -78,13 +64,8 @@ h1 {
     body {
         margin-top: 18%;
     }
-
 }
 
-/* -------------------------------------------*/
-/* -------------------------------------------*/
-
-/* NAVIGATION */
 .nav-item:hover {
     background-color: rgba(0, 0, 0, 0.50);
 }
@@ -123,11 +104,6 @@ h1 {
     color: #fff;
     text-decoration: none;
 }
-
-/* -------------------------------------------*/
-/* -------------------------------------------*/
-
-/* MQ SPECIFIC*/
 
 #sidebar {
     display: none;
@@ -230,7 +206,6 @@ h1 {
     animation: 0.3s linear 0.3s forwards delayedShow;
 }
 
-/* Red Small Button */
 .smallredbutton {
     display: block;
     border:none;
@@ -244,10 +219,7 @@ h1 {
     cursor: pointer;
 }
 
-
 @media (min-width: 992px) {
-
-    /* ALLGEMEINES */
     h1 {
         font-size: 18pt;
     }
@@ -260,10 +232,8 @@ h1 {
         width: 80%;
         min-width:80%;
         margin: 2vh 4vw;
-        /*margin: 6vh 4vw;*/
     }
 
-    /* MQ SPECIFIC*/
     #mobileNav {
         display: none !important;
     }
@@ -280,7 +250,6 @@ h1 {
         min-width: 250px;
         max-width: 250px;
         min-height: 100vh;
-        /*box-shadow: 0 3px 60px -3px #2e2e2e;*/
         transition: 0.3s ease-in-out;
     }
 
@@ -328,7 +297,6 @@ h1 {
     #sidebar .sidebar-header {
         width: 100%;
         padding: 1rem 0 2rem 0;
-
     }
 
     #sidebar #user_initials {
@@ -378,7 +346,6 @@ h1 {
         display: inline-block;
     }
 
-    /* COLLAPSE TOGGLE BUTTON */
     .menu-toggler {
         padding: 0;
     }
@@ -411,12 +378,6 @@ h1 {
 
 }
 
-/* -------------------------------------------*/
-/* -------------------------------------------*/
-
-/** Button CSS */
-
-
 .bigredbutton, #form-id .bigredbutton {
     background-color: var(--red);
     color: #FFF;
@@ -436,7 +397,6 @@ h1 {
     cursor: pointer;
     color: #FFF;
     text-decoration: none;
-    /*  box-shadow: 0px 4px 35px -5px #c10612;  */
 }
 
 @media (min-width: 501px) {
@@ -456,12 +416,6 @@ h1 {
     }
 }
 
-/* -------------------------------------------*/
-/* -------------------------------------------*/
-
-/* CSS für die Blog Cards! */
-
-/* Start Card CSS */
 .blog-card {
     flex-direction: column;
     box-shadow: 2px 2px 2px 3px rgba(0, 0, 0, 0.1);
@@ -487,6 +441,7 @@ h1 {
     margin: 0;
     font-size: 1.7rem;
 }
+
 .blog-card .description h3 {
     font-size: 1rem;
     font-weight: 300;
@@ -498,11 +453,11 @@ h1 {
     position: relative;
     margin: 1rem 0 0;
 }
+
 .blog-card p:first-of-type {
     margin-top: 1.25rem;
 }
 
-/* Roter Streifen! */
 .blog-card p:first-of-type:before {
     content: "";
     position: absolute;
@@ -512,8 +467,6 @@ h1 {
     top: -0.75rem;
     border-radius: 3px;
 }
-
-/* Responsive Stuff - für die vollwertige Seite */
 
 @media (max-width: 640px) {
     .blog-card {
@@ -563,12 +516,6 @@ h1 {
     }
 }
 
-/* ------------------------------- */
-/* ------------------------------- */
-
-/* Back to Top Button CSS */
-
-
 .cd-top {
     display: inline-block;
     height: 40px;
@@ -577,7 +524,6 @@ h1 {
     bottom: 40px;
     right: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-    /* image replacement properties */
     overflow: hidden;
     text-indent: 100%;
     white-space: nowrap;
@@ -592,24 +538,25 @@ h1 {
 }
 
 .cd-top.cd-is-visible {
-    /* the button becomes visible */
     visibility: visible;
     opacity: 1;
 }
 .cd-top.cd-fade-out {
-    /* if the user keeps scrolling down, the button is out of focus and becomes less visible */
     opacity: 0.5;
 }
+
 .no-touch .cd-top:hover {
     background-color: var(--red);
     opacity: 1;
 }
+
 @media only screen and (min-width: 768px) {
     .cd-top {
         right: 30px;
         bottom: 20px;
     }
 }
+
 @media only screen and (min-width: 1024px) {
     .cd-top {
         height: 60px;
@@ -618,19 +565,16 @@ h1 {
         bottom: 30px;
     }
 }
+
 @media only screen and (max-width: 600px) {
     .cd-top {
         margin-right: 5%;
     }
 }
 
-
-/** Statistiken Part 3 **/
-
 #stat3heading {
     text-align: center;
 }
-
 
 .fullWidth {
     width: 80%;
@@ -652,7 +596,6 @@ h1 {
     flex-direction: row;
     flex-wrap: wrap;
 }
-
 
 .projectFactsWrap .item{
     width: 25%;
@@ -690,7 +633,6 @@ h1 {
     padding: 10px;
 }
 
-
 .projectFactsWrap .item span{
     width: 60px;
     background: rgba(255, 255, 255, 0.8);
@@ -699,13 +641,11 @@ h1 {
     margin: 0 auto;
 }
 
-
 .projectFactsWrap .item i{
     vertical-align: middle;
     font-size: 50px;
     color: rgba(255, 255, 255, 0.8);
 }
-
 
 .projectFactsWrap .item:hover i, .projectFactsWrap .item:hover p{
     color: white;
@@ -720,4 +660,3 @@ h1 {
         flex: 0 0 50%;
     }
 }
-
